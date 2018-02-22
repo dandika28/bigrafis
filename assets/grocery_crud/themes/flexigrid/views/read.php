@@ -15,7 +15,7 @@
 
 		<?php foreach($fields as $field) { ?>
 		<div class='row' id="<?php echo $field->field_name; ?>_field_box">
-			<div class='form-display-as-box col-lg-2' id="<?php echo $field->field_name; ?>_display_as_box">
+			<div class='form-display-as-box col-lg-3' id="<?php echo $field->field_name; ?>_display_as_box">
 				<label style="width:90%">
 				<?php echo $input_fields[$field->field_name]->display_as?><?php echo ($input_fields[$field->field_name]->required)? "<span class='required'>*</span> " : ""?>
 				</label>

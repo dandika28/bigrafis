@@ -72,6 +72,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/themes/'.$settings->skin.'.css') ?>">
 
     <link href="<?php echo base_url('assets/metronic/css/custom.css') ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url('assets/metronic/css/simplegrid.css') ?>" rel="stylesheet" type="text/css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico">
 
