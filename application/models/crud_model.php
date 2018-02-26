@@ -7,7 +7,7 @@ class Crud_model extends CI_Model {
 		parent::__construct();
 	}
 
-	function select($table, $fields, $where = null, $limit = null, $order = null, $group_by = null)
+	function select($table, $fields, $where, $limit = null, $order = null, $group_by = null)
 	{
 		$this->db->from($table);
 		$this->db->select($fields);
@@ -73,10 +73,16 @@ class Crud_model extends CI_Model {
 		return $this->db->list_tables();
 	}
 
-	function relation($table1, $table2, $param, $fields, $where){
+	function relation($table1, $table2, $table3, $table4, $param, $param2, $param3, $fields, $where){
 		$this->db->select($fields);
 		$this->db->from($table1);
 		$this->db->join($table2, $param);
+		if($table3 != null && $param2 !=null){
+			$this->db->join($table3, $param2);
+		}
+		if($table4 != null && $param3 !=null){
+			$this->db->join($table4, $param3);
+		}
 		if ($where != null) {
 			$this->db->where($where);
 		}

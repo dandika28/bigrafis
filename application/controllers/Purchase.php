@@ -32,6 +32,8 @@ class Purchase extends CI_Controller {
 		$crud->display_as('customer_id','Customer');
 		$crud->required_fields('no_po','tanggal_po','tanggal_kirim');		
 		$crud->unset_print(); 
+        $crud->add_action('report','fa fa-book','report/po_receive','');
+        $crud->add_action('receive','fa fa-clipboard','report/po_receive_prod','');
 		$output = $crud->render();
         
         $data['judul'] = 'Purchase Order';
@@ -56,6 +58,7 @@ class Purchase extends CI_Controller {
 		$crud->set_relation('po_id', 'po', 'no_po');
 		$crud->display_as('po_id','Nomer Purchase Order');
 		$crud->add_action('Material', 'fa fa-paperclip', 'purchase/spk_material','edit_button');
+        $crud->add_action('Report', 'fa fa-book','report/report_spk_induk','');
 		$crud->unset_print();
         $output = $crud->render();
         
@@ -144,11 +147,16 @@ class Purchase extends CI_Controller {
 		$crud->callback_after_update(array($this,'operatormesinupdate'));
 		$crud->unset_print();
 		}
+        
+        $crud->add_action('Cetak','fa fa-book','report/cetakspk', '');
 		$output = $crud->render();
 		
-        
+        $data['preview'] = 'set';
         $data['judul'] = 'SPK Proses Mesin';
         $data['crumb'] = array('SPK'=>' ', 'Mesin'=>'');
+
+        $output->data = $data;
+
         $view = 'grocery'; $template='metronic_template';
         $this->outputview->output_admin($view, $template, $data, $output);
         
@@ -264,6 +272,4 @@ class Purchase extends CI_Controller {
                 //$bookdate = date('Y-m-d H:i:s');
                 return "<select id='field-operator_mesin' name='operator_mesin' class='chosen-select chzn-done' data-placeholder='Select Operator' style='display: ;'></select>";
         }
-	
-
 }

@@ -45,12 +45,21 @@ class Nota extends CI_Controller {
         $this->outputview->output_admin($view, $template, $data, $output);
 	}
 
-	public function new($spk_induk)
+	public function export($spk_induk)
 	{
-		$output = (object)array('data' => '' , 'output' => '' , 'js_files' => null , 'css_files' => null);
+		//$output = (object)array('data' => '' , 'output' => '' , 'js_files' => null , 'css_files' => null);
+
+		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
+
+		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
+
 
         $data['judul'] = ' Nota Transfer';
-		$data['crumb'] = array( 'Nota' => 'nota/index', 'New' => '');
+		$data['crumb'] = array( 'Nota' => 'nota/index', 'Export' => '');
+
+		//$output['ponumber'] = $headervalue[0]->spk_induk_id;
+		//$output['projectname'] = $headervalue[0]->product_name;
+		$output['test'] = $value;
 
         $template = 'metronic_template';
         $view = 'nota';
@@ -61,12 +70,12 @@ class Nota extends CI_Controller {
 	{
 		//$output['test'] = $this->crud_model->relation('spk_material','material','*','material.id = spk_material.kode_material', null)->result();
 
-		$output['test'] = $this->crud_model->relation('spk_material','material','material.id = spk_material.kode_material', '*', null)->result();
+		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', null)->result();
 
         $data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'View' => '');
 		$output['spk'] = $spk_induk;
-		$output['exporturl'] = 'nota/export';
+		$output['exporturl'] = 'nota/export/'.$spk_induk;
 
         $template = 'metronic_template';
         $view = 'nota';

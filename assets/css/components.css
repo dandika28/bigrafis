@@ -1044,12 +1044,12 @@ a:focus, a:hover, a:active {
 }
 
 /* Horizontal break */
-hr {
+/*hr {
   margin: 20px 0;
   border: 0;
   border-top: 1px solid #eee;
   border-bottom: 0;
-}
+}*/
 
 /* Unstyled List */
 .list-unstyled li > .list-unstyled {

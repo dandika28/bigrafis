@@ -64,7 +64,7 @@
     <link href="<?php echo base_url('assets/metronic/css/tasks.css') ?>" rel="stylesheet" type="text/css">
     <!-- END PAGE STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link href="<?php echo base_url('assets/metronic/css/components.css') ?>" id="style_components" rel="stylesheet" type="text/css">
+    <!--link href="<?php echo base_url('assets/metronic/css/components.css') ?>" id="style_components" rel="stylesheet" type="text/css"-->
     <link href="<?php echo base_url('assets/metronic/css/plugins.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('assets/metronic/css/layout.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('assets/metronic/css/darkblue.css') ?>" rel="stylesheet" type="text/css" id="style_color">
@@ -73,6 +73,7 @@
 
     <link href="<?php echo base_url('assets/metronic/css/custom.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('assets/metronic/css/simplegrid.css') ?>" rel="stylesheet" type="text/css">
+
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico">
 
@@ -282,10 +283,16 @@
             <?php } ?>
           </ul>
 			</div>
-			<h3 class="page-title">
-			<?php echo $judul ?>
-			</h3>
-			
+            <?php if(isset($param1)){?>
+    			<h3 class="page-title <?php echo $param1; ?>" style="text-decoration: underline; margin-bottom: 0px;">
+    			<?php echo $judul ?>
+    			</h3>
+                <p class="<?php echo $param1; ?> page-sub-title"><?php echo $subjudul ?></p>
+			<?php } else { ?>
+                <h3 class="page-title ?>">
+                <?php echo $judul ?>
+                </h3>
+            <?php } ?>
 		<?php echo $page ?>
 		</div>
 	</div>
@@ -322,14 +329,18 @@
 <script src="<?php echo base_url('assets/metronic/js/jquery.slimScroll.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/fastclick/fastclick.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/app.min.js') ?>"></script>
+
 <script>
     site         = '<?php echo site_url(); ?>';
     ur_class     = '<?php echo $this->uri->segment(1); ?>';
     url_function = '<?php echo $this->uri->segment(2); ?>';
+    <?php if(!isset($param)){?>
     <?php echo isset($script) ? $script : '' ?>
-    function datatablesOptions() { var option = { "orderClasses": false, <?php echo isset($data['script_datatables']) ? $data['script_datatables'] : ''  ?> }; return option; }
+    function datatablesOptions() { var option = { "orderClasses": false, <?php echo isset($data['script_datatables']) ? $data['script_datatables'] : '';  ?> }; return option; }
     function afterDatatables() { <?php echo isset($data['script_grocery']) ? $data['script_grocery']: '' ?> }
+    <?php }?>
 </script>
+
 <script src="<?php echo base_url('assets/js/list.min.js') ?>"></script>
 <?php echo isset($scriptView) ? $scriptView : ''; ?>
 <!--Custom JS-->
@@ -357,6 +368,8 @@
 <script src="<?php echo base_url('assets/metronic/js/index.js') ?>"></script>
 <script src="<?php echo base_url('assets/metronic/js/tasks.js') ?>"></script>
 
+<script src="<?php echo base_url('assets/js/plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/plugins/datatables/jquery.dataTables.min.js')?>"></script>
 
 <script>
 jQuery(document).ready(function() {    
@@ -375,5 +388,22 @@ Demo.init(); // init demo features
 });
 </script>
 
+<?php if (isset($param) && $param == 'nonprod') { ?>
+<script>
+    $(document).ready( function () {
+       // $('.dataTables_wrapper').addClass('table-scrollable');
+      var table = $('#example').DataTable({
+        "columnDefs": [
+          { className: "dt-right", "targets": [2,4,6,7] }
+        ],
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bInfo": false,
+        "bAutoWidth": false,
+      });
+    });
+</script>
+<?php } ?>
 </body>
 </html>

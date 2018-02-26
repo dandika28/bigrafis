@@ -47,6 +47,7 @@
                     	<a href='<?php echo $row->delete_url?>' title='<?php echo $this->l('list_delete')?> <?php echo $subject?>' class="delete-row" ><i class='fa fa-trash-o'></i> Delete</a>
                     </li>
                     <?php }?>
+
 				</ul>
 			</td>
 			<?php }?>

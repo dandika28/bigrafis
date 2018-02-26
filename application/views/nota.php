@@ -1,49 +1,45 @@
 <?php if ($this->uri->segment(2)=='new') { ?>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-xs-12">
 		<div>
 			<div class="flexigrid crud-form box" style="width: 100%;">
 				<div class="box-header with-border">
 					<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>Permintaan Barang (Internal)</h3>
+					<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right" onclick="javascript:window.print();">
+									Print <i class="fa fa-print"></i></a>
 				</div>
 				<div class="box-body">
 					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="row" id="projectname">
-							<div class="form-display-as-box col-lg-2 control-label" id="projectname-display-as-box">
-								<label>
-									Project Name<span class="required">*</span>
-								</label>
+							<div class="form-display-as-box col-xs-2">
+								<label style="width: 90%;">
+									Project Name
+								</label><strong>:</strong>
 							</div>
-							<div class="form-input-box col-lg-2" id="projectname_input_box">
-								<input id="projectname" class="form-control" name="projectname" type="text" value maxlength="100">
+							<div class="form-input-box col-xs-10" id="projectname_input_box">
+								<div class="readonly_label"><?php echo $headervalue[0]->product_name;?></div>
 							</div>
 						</div>
 						<br>
 						<div class="row" id="ponumber">
-							<div class="form-display-as-box col-lg-2 control-label" id="ponumber-display-as-box">
-								<label>
-									PO Number<span class="required">*</span>
-								</label>
+							<div class="form-display-as-box col-xs-2">
+								<label style="width: 90%;">
+									PO Number
+								</label><strong>:</strong>
 							</div>
-							<div class="form-input-box col-lg-2" id="ponumber_input_box">
-								<input id="ponumber" class="form-control" name="ponumber" type="text" value maxlength="100">
+							<div class="form-input-box col-xs-10" id="ponumber_input_box">
+								<div class="readonly_label"><?php echo $headervalue[0]->spk_induk_id;?></div>
 							</div>
 						</div>
 						<br>
 						<div class="row" id="intrnumber">
-							<div class="form-display-as-box col-lg-2 control-label" id="intrnumber-display-as-box">
-								<label>
+							<div class="form-display-as-box col-xs-2">
+								<label style="width: 90%;">
 									INTR Number
-								</label>
+								</label><strong>:</strong>
 							</div>
-							<div class="form-input-box col-lg-2" id="intrnumber_input_box">
-								<input id="ponumber" class="form-control" name="intrnumber" type="text" value maxlength="100">
-							</div>
-							<div class="col-lg-8 text-right">
-								<a href="#" title="Add Users" class="add-anchor add_button btn btn-primary">
-			                <i class="fa fa-plus-circle"></i> 
-							<span class="add">Add</span>
-			            </a>
+							<div class="form-input-box col-xs-10" id="intrnumber_input_box">
+								<div class="readonly_label"></div>
 							</div>
 						</div>
 						<div class="bDiv">
@@ -58,79 +54,20 @@
 											<th>SATUAN</th>
 											<th>MESIN</th>
 											<th>KETERANGAN</th>
-											<th abbr="tools" axis="col1">Actions</th>
 										</tr>
 									</thead>
 									<tbody>
+										<?php $i = 1; foreach ($test as $key => $value) {?>
 										<tr>
-											<td>1</td>
-											<td>10-02-2017</td>
-											<td>Plastik Rokok</td>
-											<td>2</td>
-											<td>Bal</td>
+											<td><?= $i ?></td>
+											<td><?php echo date("d/m/Y");?></td>
+											<td><?php echo $value->material_name;?></td>
+											<td><?php echo $value->jumlah_material;?></td>
+											<td><?php echo $value->satuan;?></td>
 											<td></td>
 											<td></td>
-											<td class="td-action">
-												<ul class="tools list-unstyled table-menu">
-													<li>
-														<a href="#" class="edit_button crud-action"><i class="fa fa-pencil"></i>
-															Edit
-														</a>
-													</li>
-													<li>
-														<a href="#" class="delete-row"><i class="fa fa-trash-o"></i>
-															Delete
-														</a>
-													</li>
-												</ul>
-											</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>10-02-2017</td>
-											<td>Lakban Coklat</td>
-											<td>6</td>
-											<td>Bal</td>
-											<td></td>
-											<td></td>
-											<td class="td-action">
-												<ul class="tools list-unstyled table-menu">
-													<li>
-														<a href="#" class="edit_button crud-action"><i class="fa fa-pencil"></i>
-															Edit
-														</a>
-													</li>
-													<li>
-														<a href="#" class="delete-row"><i class="fa fa-trash-o"></i>
-															Delete
-														</a>
-													</li>
-												</ul>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>10-02-2017</td>
-											<td>Karet</td>
-											<td>1</td>
-											<td>Bks</td>
-											<td></td>
-											<td></td>
-											<td class="td-action">
-												<ul class="tools list-unstyled table-menu">
-													<li>
-														<a href="#" class="edit_button crud-action"><i class="fa fa-pencil"></i>
-															Edit
-														</a>
-													</li>
-													<li>
-														<a href="#" class="delete-row"><i class="fa fa-trash-o"></i>
-															Delete
-														</a>
-													</li>
-												</ul>
-											</td>
-										</tr>
+										<?php $i = $i+1; } ?>
 									</tbody>
 								</table>
 							</div>
@@ -180,12 +117,12 @@
 				<div class="box-body">
 					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="row" id="field">
-							<!--div class="form-display-as-box col-lg-2 control-label" id="projectname-display-as-box">
+							<!--div class="form-display-as-box col-xs-2 control-label" id="projectname-display-as-box">
 								<label>
 									Project Name<span class="required">*</span>
 								</label>
 							</div-->
-							<div class="form-input-box col-lg-6" id="projectname_input_box">
+							<div class="form-input-box col-xs-6" id="projectname_input_box">
 								<input id="projectname" class="form-control" name="projectname" type="text" value maxlength="100">
 							</div>
 						</div>
