@@ -5,10 +5,11 @@ class Report extends CI_Controller {
     function __construct()
     {
 		parent::__construct();
-		//$this->load->library('grocery_CRUD');
+		$this->load->library('grocery_CRUD');
 		$this->load->library('OutputView');
 		$this->load->model('crud_model');
-		
+        $this->load->model('Notification_model');
+        $this->load->model('User_groups_model');
     }
 	
 	public function mesinreport ()
@@ -43,7 +44,7 @@ class Report extends CI_Controller {
         $senddate = new DateTime($value[0]->tanggal_kirim);
 
         //output
-        $output['param'] = 'nonprod';
+        $output['param'] = 'nprod';
         $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'po.product_id=product.product_id',null,null,'*','po.id='.$id)->result();
         $output['no'] = $value[0]->no_po;
         $output['tgl'] = $this->tanggal_indo($value[0]->tanggal_po);
@@ -87,10 +88,46 @@ class Report extends CI_Controller {
 
     public function cetakspk($spk_proses_id)
     {
-        $value = $this->crud_model->relation('spk_induk','spk_proses_mesin', 'po', 'product', 'spk_induk.spk_induk_id=spk_proses_mesin.spk_induk','spk_induk.po_id=po.id','po.product_id=product.product_id','spk_induk.spk_induk_id, spk_proses_mesin.proses_type, product.product_name, spk_proses_mesin.qty_order, spk_proses_mesin.nama_kertas, spk_proses_mesin.ukuran_kertas, spk_proses_mesin.ukuran_kertas_plano, spk_proses_mesin.ukuran_kertas_potong, spk_proses_mesin.jumlah, spk_proses_mesin.warna, spk_proses_mesin.proses_ke_mesin, spk_proses_mesin.catatan_khusus, spk_proses_mesin.varnish_type','spk_proses_mesin.spk_proses_id='.$spk_proses_id)->result();
+        $value = $this->crud_model->relation('spk_induk','spk_proses_mesin', 'po', 'product', 'spk_induk.spk_induk_id=spk_proses_mesin.spk_induk','spk_induk.po_id=po.id','po.product_id=product.product_id','*','spk_proses_mesin.spk_proses_id='.$spk_proses_id)->result();
 
-        $data['judul'] = 'SPK PRODUKSI';
-        $data['subjudul'] = 'VARNISH';
+        $proses = $value[0]->proses_type;
+        switch ($proses) {
+            case 1:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'CETAK';
+                break;
+            case 2:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'VARNISH';
+                break;
+            case 9:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'SORTIR';
+                break;
+            case 5:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'POTONG';
+                break;
+            case 6:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'GLUING';
+                break;
+            case 7:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'PLATE';
+                break;
+            case 8:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'POND';
+                break;
+            case 10:
+                $data['judul'] = 'SPK PRODUKSI';
+                $data['subjudul'] = 'PACKING';
+                break;
+        }
+
+        //$data['judul'] = 'SPK PRODUKSI';
+        //$data['subjudul'] = 'VARNISH';
 
         $output['data'] = $value[0];
         $output['param'] = $value[0]->proses_type;
@@ -107,18 +144,23 @@ class Report extends CI_Controller {
         //$output = (object)array('data' => '' , 'output' => '' , 'js_files' => null , 'css_files' => null);
 
         $data['judul'] = 'PRODUKSI';
-        $data['crumb'] = array( 'Report' => '');
+        $data['crumb'] = array( 'SPK' => 'purchase/spk_induk', 'Report' => '');
 
         $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk)->result();
         $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
         $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.jumlah_material, spk_material.satuan, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
+        $valuehasil = $this->crud_model->relation('spk_induk', 'po','product', 'gudang','spk_induk.po_id=po.id', 'po.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, po.jumlah_unit,
+            product.product_unit, product.product_price, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
+
         //output
+        $output['hasilProduksi'] = $valuehasil[0];
         $output['spkdata'] = $valuetable;
         $output['nomor'] = $value[0]->spk_induk_id;
         $output['tgl'] = $this->tanggal_indo($value[0]->spk_date);
         $output['desc'] = $value[0]->description;
         $output['gdasal'] = $value[0]->gudang_name;
        	$output['gdtujuan'] = $gudangtujuan[0]->gudang_name;
+        $output['param'] = 'nonprod';
 
         $template = 'metronic_template';
         $view = 'report';

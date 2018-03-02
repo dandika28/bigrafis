@@ -7,6 +7,8 @@ class Crud extends CI_Controller {
 		parent::__construct();
 		$this->load->library('grocery_CRUD');
 		$this->load->library('OutputView');
+		$this->load->model('Notification_model');
+		$this->load->model('User_groups_model');
     }
  	
     public function index()
@@ -15,6 +17,11 @@ class Crud extends CI_Controller {
 
         $data['judul'] = 'Dashboard';
 
+        //buat notif
+		//$userid = $this->ion_auth->user()->row()->id;
+        //$group_id = $this->User_groups_model->get_group($userid);	
+	  	//  $data['notif'] = $this->Notification_model->listnotif($group_id);
+		//  $data['group_id'] = $group_id;
         $template = 'metronic_template';
         $view = 'grocery';
         $this->outputview->output_admin($view, $template, $data, $output);

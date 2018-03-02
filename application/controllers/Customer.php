@@ -9,7 +9,7 @@ class Customer extends CI_Controller {
 		$this->load->library('OutputView');
     }
 	
-	public function customer ()
+	public function customer()
 	{
 		$crud = new Grocery_CRUD();
 		$crud->set_subject('Customer');

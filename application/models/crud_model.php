@@ -41,6 +41,21 @@ class Crud_model extends CI_Model {
         $this->db->update($table, $data);
 	}
 
+	function updates($data)
+	{
+        //$this->db->update($table, $data);
+        extract($data);
+        $this->db->where('spk_material_id', $spk_material_id); 
+        $this->db->update($table_name, array('qty_deliver' => $qty_deliver));
+	}
+
+	function updatenotif($data)
+	{
+		extract($data);
+		$this->db->where('group_id', $group_id); 
+        $this->db->update($table_name, array('status' => $status));
+	}
+
 	function delete($table, $where)
 	{
         $this->db->where($where);

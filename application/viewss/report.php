@@ -2,9 +2,6 @@
 	$subtotal = 0;
 	$subtotalsedia = 0;
 	$totalsusunproduk = 0;
-	$totalHasilProduksi = 0;
-	$subTotalHasilProduksi = 0;
-	$totalSusunProdukHasilProduksi = 0;
 ?>
 <div class="row">
 	<div class="col-xs-12">
@@ -94,50 +91,50 @@
 										<tr>
 											<td colspan="5" class="text-right">Subtotal</td>
 											<td></td>
-											<td class="dt-right"><?php echo $subtotal; ?></td>
+											<td><?php echo $subtotal; ?></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Subtotal Persediaan</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $subtotalsedia=$subtotalsedia+$subtotal;?></b></td>
-											<td></td>
+											<td><b><?php echo $subtotalsedia=$subtotalsedia+$subtotal;?></b></td>
+											<td class="dt-right"></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Total Penyusun Produk</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $totalsusunproduk=$totalsusunproduk+$subtotalsedia;?></b></td>
-											<td></td>
+											<td><b><?php echo $totalsusunproduk=$totalsusunproduk+$subtotalsedia;?></b></td>
+											<td class="dt-right"></td>
 										</tr>
 										<tr>
 											<td colspan="8" class="text-left"><b>Hasil Produksi</b></td>
 										</tr>
 										<tr>
-											<td><?php echo $hasilProduksi->product_kode; ?></td>
-											<td><?php echo $hasilProduksi->product_name; ?></td>
-											<td class="dt-right"><?php echo $hasilProduksi->jumlah_unit; ?></td>
-											<td><?php echo $hasilProduksi->product_unit; ?></td>
-											<td class="dt-right"><?php echo $hasilProduksi->product_price; ?></td>
-											<td class="dt-right"></td>
-											<td class="dt-right"><?php echo $totalHasilProduksi=$totalHasilProduksi+$totalsusunproduk;?></b></td>
-											<td><?php echo $hasilProduksi->gudang_name; ?></td>
+											<td>4003</td>
+											<td>Lakban Coklat</td>
+											<td class="dt-right">-10.00</td>
+											<td>Pcs</td>
+											<td class="dt-right">7,000.00</td>
+											<td class="dt-right">1</td>
+											<td class="dt-right">-70,000.00</td>
+											<td>WIP</td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right">Subtotal</td>
 											<td></td>
-											<td class="dt-right"><?php echo $subTotalHasilProduksi=$subTotalHasilProduksi+$totalHasilProduksi;?></td>
+											<td class="dt-right">-70,000.00</td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Total Penyusun Produk</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $totalSusunProdukHasilProduksi=$totalSusunProdukHasilProduksi+$subTotalHasilProduksi;?></b></td>
+											<td class="dt-right"><b>-70,000.00</b></td>
 											<td class="dt-right"></td>
 										</tr>
 									</tfoot>
 								</table>
 							</div>
-							<br><br><br>
+							<br>
 							<div class="col-xs-6 text-center">
 								<div class="row">
 									Mengetahui,

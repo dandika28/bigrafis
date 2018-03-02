@@ -97,3 +97,9 @@ tr.noBorder td{
   font-weight: none;
   font-size: 12px;
 }
+.footer {
+  /* position: fixed; */
+   margin: 2px 2px 50px 2px;
+   bottom: 0;
+   width: 100%;
+}

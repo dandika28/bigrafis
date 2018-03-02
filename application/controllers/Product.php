@@ -8,6 +8,7 @@ class Product extends CI_Controller {
 		$this->load->library('grocery_CRUD');
 		$this->load->library('OutputView');
 		$this->load->model('User_groups_model');
+        $this->load->model('Notification_model');
     }
 	
 	public function product ()

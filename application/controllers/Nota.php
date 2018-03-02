@@ -8,6 +8,8 @@ class Nota extends CI_Controller {
 		$this->load->library('grocery_CRUD');
 		$this->load->library('OutputView');
 		$this->load->model('crud_model');
+		$this->load->model('Notification_model');
+		$this->load->model('User_groups_model');
     }
 
     public function index()
@@ -49,17 +51,33 @@ class Nota extends CI_Controller {
 	{
 		//$output = (object)array('data' => '' , 'output' => '' , 'js_files' => null , 'css_files' => null);
 
-		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
+		//if($this->input->post('btnPrint')){
+		$spkMaterialId = $this->input->post('spk_material_id');
+		$qtydeliver = $this->input->post('qty_deliver');
 
-		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
+		$data = array('table_name' => 'spk_material',
+			'spk_material_id' => $spkMaterialId,
+			'qty_deliver' => $qtydeliver);
+
+		if($this->crud_model->updates($data)){
+			$output['success'] = '0';
+
+		}else{
+
+			$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
+
+			$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
+
+			//$output['ponumber'] = $headervalue[0]->spk_induk_id;
+			//$output['projectname'] = $headervalue[0]->product_name;
+			$output['test'] = $value;
+
+			$output['success'] = '1';
+		}
 
 
-        $data['judul'] = ' Nota Transfer';
+       $data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'Export' => '');
-
-		//$output['ponumber'] = $headervalue[0]->spk_induk_id;
-		//$output['projectname'] = $headervalue[0]->product_name;
-		$output['test'] = $value;
 
         $template = 'metronic_template';
         $view = 'nota';
@@ -70,7 +88,7 @@ class Nota extends CI_Controller {
 	{
 		//$output['test'] = $this->crud_model->relation('spk_material','material','*','material.id = spk_material.kode_material', null)->result();
 
-		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', null)->result();
+		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', 'spk_material.spk_induk_id='.$spk_induk)->result();
 
         $data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'View' => '');

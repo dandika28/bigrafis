@@ -5,17 +5,27 @@ php_value max_input_time 0
 
 <IfModule mod_rewrite.c>
 
-RewriteEngine On
+RewriteEngine on
 RewriteBase /bigrafis/
-
-RewriteCond %{REQUEST_URI} ^system.*
-RewriteRule ^(.*)$ /index.php?/$1 [L]
-
-RewriteCond %{REQUEST_URI} ^application.*
-RewriteRule ^(.*)$ /index.php?/$1 [L]
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?/$1 [L]
+RewriteRule ^(.*)$ ./index.php/$1 [L,QSA] 
+
+#RewriteEngine On
+#RewriteBase /bigrafis/
+
+#RewriteCond $1 !^(index\.php|images|robots\.txt)
+#RewriteRule ^(.*)$ /index.php/$1 [L]
+
+#RewriteCond %{REQUEST_URI} ^system.*
+#RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+#RewriteCond %{REQUEST_URI} ^application.*
+#RewriteRule ^(.*)$ /index.php?/$1 [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php?/$1 [L]
 
 </IfModule>
 

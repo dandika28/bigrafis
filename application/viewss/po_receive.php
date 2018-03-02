@@ -1,4 +1,4 @@
-<?php if ($param == 'nprod') { 
+<?php if ($param == 'nonprod') { 
 	$pajak = 0;
 	$biayapajak = 0;
 	$subtotal = 0;
@@ -12,13 +12,8 @@
 		<div>
 			<div class="flexigrid crud-form box" style="width: 100%;">
 				<div class="box-header no-border">
-					<div class="col-xs-8">
 					<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right" onclick="javascript:window.print();">
-						Print <i class="fa fa-print"></i></a>
-					</div>
-					<div class="col-xs-4 text-right">
-						<label class="table-bordered"> FM-LSA-LOG-011</label>
-					</div>
+									Print <i class="fa fa-print"></i></a>
 				</div>
 				<div class="box-body">
 					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
@@ -123,7 +118,7 @@
 											<td><?php echo $value->product_unit;?></td>
 											<td><?php echo $value->product_price;?></td>
 											<td><?php echo $discount=$discount+$value->discount;?></td>
-											<td><?php echo  (float) $subtotal = $subtotal+$value->jumlah_unit * $value->product_price;?></td>
+											<td><?php echo $subtotal = $subtotal+$value->jumlah_unit * $value->product_price;?></td>
 											<td><?php  echo $pajak = $pajak+$value->pajak; ?>%</td>
 										</tr>
 										<?php $i = $i+1; } ?>
@@ -131,19 +126,17 @@
 								</table>
 							</div>
 							<br>
-						
+						</div>
 						<div class="col-xs-12 text-center" style="height: 150px;">
 								
 						</div>
-						<div class="col-xs-12">
-						<hr style="border-top: 1px solid #000" align="center" width="100%">
-						</div>
+						
+						<hr width="100%">
 						<div class="row">
-							<div class="form-display-as-box col-xs-1">
-								<label>Terbilang
-								</label>
+							<div class="col-xs-1">
+								Terbilang
 							</div>
-							<div class="form-display-as-box col-xs-5">
+							<div class="col-xs-5">
 								<textarea class="form-control font-italic" rows="3"></textarea>
 							</div>
 							<div class="col-xs-6">
@@ -205,12 +198,13 @@
 									</div>
 									
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><b><?php echo $total - $dibayar;?></b><hr style="border-top: 1px solid black"></div>
+										<div class="readonly_label dt-right"><b><?php echo $total - $dibayar;?></b></div>
 									</div>
+									<hr style="border-top: 1px solid #000" width="95%">
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="row">
 							<div class="col-xs-6 text-center">
 								<?php echo $customername; ?>
@@ -241,14 +235,9 @@
 		<div>
 			<div class="flexigrid crud-form box" style="width: 100%;">
 				<div class="box-header with-border">
-					<div class="col-xs-8">
-						<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>PRODUKSI</h3>
-						<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right" onclick="javascript:window.print();">
-										Print <i class="fa fa-print"></i></a>
-					</div>
-					<div class="col-xs-4 text-right">
-						<label class="table-bordered"> FM-LSA-LOG-011</label>
-					</div>
+					<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>PRODUKSI</h3>
+					<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right" onclick="javascript:window.print();">
+									Print <i class="fa fa-print"></i></a>
 				</div>
 				<div class="box-body">
 					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
@@ -353,34 +342,32 @@
 								</table>
 							</div>
 							<br>
-						<div class="col-xs-12 text-center" style="height: 150px;">
+						</div>
+						<div class="col-xs-12 text-center" style="height: 100px;">
 								
 						</div>
-						<div class="row">
-							<div class="col-xs-4">
-								Delivery Konfirmasi 1
-								<br>
-								Tanggal:
-								<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
-							</div>
-							<div class="col-xs-4">
-								Delivery Konfirmasi 2
-								<br>
-								Tanggal:
-								<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
-							</div>
-							<div class="col-xs-4">
-								Delivery Konfirmasi 3
-								<br>
-								Tanggal:
-								<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
-							</div>
+						
+						<div class="col-xs-4">
+							Delivery Konfirmasi 1
+							<br>
+							Tanggal:
+							<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
 						</div>
-						
-						<hr style="border-top: 1px solid #000" width="100%">
-						
+						<div class="col-xs-4">
+							Delivery Konfirmasi 2
+							<br>
+							Tanggal:
+							<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
+						</div>
+						<div class="col-xs-4">
+							Delivery Konfirmasi 3
+							<br>
+							Tanggal:
+							<div class="box" style="height: 100px; border: none; box-shadow: none;"></div>
 						</div>
 
+						<hr style="border-top: 1px solid #000" width="100%">
+						
 						<div class="row" style="margin-top: 125px;">
 							<div class="col-xs-6 text-center">
 								Diserahkan

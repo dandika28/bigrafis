@@ -70,34 +70,12 @@
     <link href="<?php echo base_url('assets/metronic/css/darkblue.css') ?>" rel="stylesheet" type="text/css" id="style_color">
 
     <link rel="stylesheet" href="<?php echo base_url('assets/css/themes/'.$settings->skin.'.css') ?>">
-
+	<link href="<?php echo base_url('assets/metronic/css/simplegrid.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('assets/metronic/css/custom.css') ?>" rel="stylesheet" type="text/css">
-    <link href="<?php echo base_url('assets/metronic/css/simplegrid.css') ?>" rel="stylesheet" type="text/css">
-
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- END CUSTOM METRONIC-->
-
-    <style type="text/css" media="print">
-    @page 
-    {
-        size:  auto;   /* auto is the initial value */
-        margin: 0mm;  /* this affects the margin in the printer settings */
-    }
-
-    html
-    {
-        background-color: #FFFFFF; 
-        margin: 0px;  /* this affects the margin on the html before sending to printer */
-    }
-
-    body
-    {
-        border: solid 1px blue ;
-        margin: 10mm 15mm 10mm 15mm; /* margin you want for the content */
-    }
-    </style>
 	
 </head>
 <body class="page-header-fixed page-container-bg-solid ">
@@ -119,51 +97,49 @@
 			<!-- BEGIN TOP NAVIGATION MENU -->
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right ">
-
-                    <!--Behin Notif -->
-                <?php
-                    $this->load->model('Notification_model');
-                    $this->load->model('User_groups_model');
-                    $userid = $this->ion_auth->user()->row()->id;
-                    if($userid!=1){
-                        $group_id = $this->User_groups_model->get_group($userid);
-                        $notif = $this->Notification_model->listnotif($group_id); ?>
-                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <i class="icon-bell"></i>
-                    <span class="badge badge-default" id="notification" data-value="<?php echo $group_id;?>">
-                    <?php
-                        echo $this->db->get_where('notification', array('status' => 'N','group_id' => $group_id), '10')->num_rows(); ?>
-                    </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="external">
-                            <h3><span class="bold"><?php echo $this->db->get_where('notification', array('status' => 'N','group_id' => $group_id), '10')->num_rows(); ?> 
-                            notifications</h3>
-                            <!--a href="extra_profile.html">view all</a-->
-                        </li>
-                        <li>
-                            <ul class="dropdown-menu-list scroller" style="height: 250px;"> 
-                            <?php foreach($notif as $keye => $valuee): ?> 
-                                <?php //foreach($valuee as $key_iteme => $iteme):?>
-                                <li>                                    
-                                    <a href="#">                                    
-                                    <span class="label label-sm label-icon label-success">
-                                    <i class="fa fa-plus"></i>
-                                    </span><span class="details">
-                                    <?php echo $valuee['subject']; ?>
-                                    </span>
-                                    <!--span class="time"> <?php //echo $valuee['date'];?> </span-->
-                                    </a>                                    
-                                </li>
-                                    <?php //endforeach;?>
-                                    <?php endforeach;?>
-                            </ul>                       
-                        </li>
-                    </ul>
-                </li>
-                <?php } ?>
-					<!-- BEGIN USER LOGIN DROPDOWN -->
+				<!--Behin Notif -->
+				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<i class="icon-bell"></i>
+					<span class="badge badge-default">
+					<?php
+					$this->load->model('Notification_model');
+					$this->load->model('User_groups_model');
+					$userid = $this->ion_auth->user()->row()->id;
+					$group_id = $this->User_groups_model->get_group($userid);	
+						$notif = $this->Notification_model->listnotif($group_id);		  
+						//print_r($notif);
+					echo $this->db->get_where('notification', array('status' => 'N','group_id' => $group_id), '10')->num_rows(); ?></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="external">
+							<h3><span class="bold"><?php echo $this->db->get_where('notification', array('status' => 'N','group_id' => $group_id), '10')->num_rows(); ?> 
+							notifications</h3>
+							<!--a href="extra_profile.html">view all</a-->
+						</li>
+						<li>
+							<ul class="dropdown-menu-list scroller" style="height: 250px;">	
+							<?php foreach($notif as $keye => $valuee): ?> 
+								<?php //foreach($valuee as $key_iteme => $iteme):?>
+								<li>									
+									<a href="#">									
+									<span class="label label-sm label-icon label-success">
+									<i class="fa fa-plus"></i>
+									</span><span class="details">
+									<?php echo $valuee['subject']; ?>
+									</span>
+									<!--span class="time"> <?php //echo $valuee['date'];?> </span-->
+									</a>									
+								</li>
+									<?php //endforeach;?>
+									<?php endforeach;?>
+							</ul>						
+						</li>
+							
+					</ul>
+				</li>
+					</li>
+					<!-- BEGIN USER LOGIN DROPDOWN -->					
 					<li class="dropdown dropdown-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<img src="<?php echo base_url('assets/img/avatar04.png') ?>" class="user-image" alt="User Image"/>
@@ -347,7 +323,7 @@
             <?php } ?>
           </ul>
 			</div>
-            <?php if(isset($param1)){?>
+			<?php if(isset($param1)){?>
     			<h3 class="page-title <?php echo $param1; ?>" style="text-decoration: underline; margin-bottom: 0px;">
     			<?php echo $judul ?>
     			</h3>
@@ -393,7 +369,6 @@
 <script src="<?php echo base_url('assets/metronic/js/jquery.slimScroll.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/fastclick/fastclick.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/app.min.js') ?>"></script>
-
 <script>
     site         = '<?php echo site_url(); ?>';
     ur_class     = '<?php echo $this->uri->segment(1); ?>';
@@ -404,7 +379,6 @@
     function afterDatatables() { <?php echo isset($data['script_grocery']) ? $data['script_grocery']: '' ?> }
     <?php }?>
 </script>
-
 <script src="<?php echo base_url('assets/js/list.min.js') ?>"></script>
 <?php echo isset($scriptView) ? $scriptView : ''; ?>
 <!--Custom JS-->
@@ -431,7 +405,6 @@
 <script src="<?php echo base_url('assets/metronic/js/jquery.sparkline.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/metronic/js/index.js') ?>"></script>
 <script src="<?php echo base_url('assets/metronic/js/tasks.js') ?>"></script>
-
 <script src="<?php echo base_url('assets/js/plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables/jquery.dataTables.min.js')?>"></script>
 
@@ -451,7 +424,6 @@ Demo.init(); // init demo features
    Tasks.initDashboardWidget();
 });
 </script>
-
 <?php if (isset($param) && $param == 'nonprod') { ?>
 <script>
     $(document).ready( function () {
@@ -469,22 +441,5 @@ Demo.init(); // init demo features
     });
 </script>
 <?php } ?>
-
-<script>  
-    $('#header_notification_bar').hover(function(){
-            var id = $("#notification").attr('data-value');            
-            $.ajax({
-               type : "POST",
-               url  : "<?php echo base_url(); ?>index.php/Purchase/updatenotif",
-               data : "groupId=" + id,
-               success: function(data){
-                   console.log(data)
-                   $('.badge').text('0');
-               },error: function () {
-                    console.log('error: '+data)
-                },
-            });
-        });
-</script>
 </body>
 </html>

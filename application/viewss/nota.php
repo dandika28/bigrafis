@@ -1,6 +1,4 @@
-<?php if ($this->uri->segment(2)=='export') { 
-	if ($success=='1'){
-	?>
+<?php if ($this->uri->segment(2)=='new') { ?>
 <div class="row">
 	<div class="col-xs-12">
 		<div>
@@ -64,7 +62,7 @@
 											<td><?= $i ?></td>
 											<td><?php echo date("d/m/Y");?></td>
 											<td><?php echo $value->material_name;?></td>
-											<td><?php echo $value->qty_deliver;?></td>
+											<td><?php echo $value->jumlah_material;?></td>
 											<td><?php echo $value->satuan;?></td>
 											<td></td>
 											<td></td>
@@ -108,14 +106,7 @@
 	</div>
 </div>
 
-<?php 
-}else{
-	?>
-
-	ERROR
-
-<?php }
-} else if ($this->uri->segment(2)=='view') { ?>
+<?php } else if ($this->uri->segment(2)=='view') { ?>
 <div class="row">
 	<div class="col-md-12">
 		<div>
@@ -124,7 +115,7 @@
 					<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>SPK ID : <?php echo $spk; ?></h3>					
 				</div>
 				<div class="box-body">
-					<form action="<?php echo site_url($exporturl) ?>" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
+					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="row" id="field">
 							<!--div class="form-display-as-box col-xs-2 control-label" id="projectname-display-as-box">
 								<label>
@@ -149,20 +140,19 @@
 									<tbody>
 										<?php $i = 1; foreach ($test as $key => $value) {?>
 										<tr>
-											<td><?= $i ?><input type="" name="spk_material_id" hidden value="<?php echo $value->spk_material_id;?>"></td>
+											<td><?= $i ?></td>
 											<td><?php echo $value->material_name;?></td>
 											<td><?php echo $value->jumlah_material;?></td>
-											<td><input id="qtydeliver" class="form-control" name="qty_deliver" type="text" value maxlength="50"></td>
-
+											<td><input id="qtydeliver" class="form-control" name="qtydeliver" type="text" value maxlength="50"></td>
 										</tr>
 										<?php $i = $i+1; } ?>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<!--a href="<?php echo site_url($exporturl) ?>" title="Add Users" class="add-anchor add_button btn btn-primary">
-			                <i class="fa fa-file-excel-o"></i-->
-			                <button id="form-button-save" type="submit" class="btn btn-primary" name="btnPrint">Print</button> 
+						<a href="<?php echo site_url($exporturl) ?>" title="Add Users" class="add-anchor add_button btn btn-primary">
+			                <i class="fa fa-file-excel-o"></i> 
+							<span class="add">Cetak Nota</span>
 			            </a>
 					</form>
 				</div>

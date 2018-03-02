@@ -10,7 +10,9 @@ class Purchase extends CI_Controller {
 		$this->load->model('Mesin_model');
 		$this->load->model('User_groups_model');
 		$this->load->model('Operatormesin_model');
+        $this->load->model('Notification_model');
 		$this->load->library('gc_dependent_select');
+        $this->load->model('crud_model');
     }
 	
 	public function purchase_order ()
@@ -34,14 +36,24 @@ class Purchase extends CI_Controller {
 		$crud->unset_print(); 
         $crud->add_action('report','fa fa-book','report/po_receive','');
         $crud->add_action('receive','fa fa-clipboard','report/po_receive_prod','');
-		$output = $crud->render();
+		$crud->callback_after_insert(array($this,'po_notif'));
+        $output = $crud->render();
         
         $data['judul'] = 'Purchase Order';
         $data['crumb'] = array('PO'=>' ', 'PO'=>'');
         $view = 'grocery'; $template='metronic_template';
         $this->outputview->output_admin($view, $template, $data, $output);
 	}
-	
+	function po_notif($post_array,$primary_key){
+        $data = array (
+            "subject" => "PO Baru Nomer ".$post_array['no_po'],
+            "notif" => "Anda mendapat PO Baru dari bagian Sales/Marketing",
+            "type" => "PO",
+            "group_id" => "3",
+            "status" => "N"
+        );
+        $this->Notification_model->insert($data);
+    }
 	public function spk_induk() {
         
         $crud = new Grocery_CRUD();
@@ -60,6 +72,7 @@ class Purchase extends CI_Controller {
 		$crud->add_action('Material', 'fa fa-paperclip', 'purchase/spk_material','edit_button');
         $crud->add_action('Report', 'fa fa-book','report/report_spk_induk','');
 		$crud->unset_print();
+        $crud->callback_after_insert(array($this,'spkinduk_notif'));
         $output = $crud->render();
         
         $data['judul'] = 'SPK Produksi';
@@ -67,6 +80,16 @@ class Purchase extends CI_Controller {
         $view = 'grocery_spkinduk'; $template='metronic_template';
         $this->outputview->output_admin($view, $template, $data, $output);
         
+    }
+    function spkinduk_notif($post_array,$primary_key){
+        $data = array (
+            "subject" => "SPK Induk Baru Nomer ".$post_array['spk_induk_id'],
+            "notif" => "Anda mendapat SPK Baru dari bagian Production",
+            "type" => "SPKINDUK",
+            "group_id" => "5",
+            "status" => "N"
+        );
+        $this->Notification_model->insert($data);
     }
     
     public function spk_material($spk_induk) {
@@ -145,6 +168,7 @@ class Purchase extends CI_Controller {
 		$crud->callback_field('operator_mesin',array($this,'callbackoperator'));
 		$crud->callback_after_insert(array($this,'operatormesinupdate'));
 		$crud->callback_after_update(array($this,'operatormesinupdate'));
+        $crud->callback_after_insert(array($this,'spkprosesmesin_notif'));
 		$crud->unset_print();
 		}
         
@@ -154,12 +178,48 @@ class Purchase extends CI_Controller {
         $data['preview'] = 'set';
         $data['judul'] = 'SPK Proses Mesin';
         $data['crumb'] = array('SPK'=>' ', 'Mesin'=>'');
-
         $output->data = $data;
-
         $view = 'grocery'; $template='metronic_template';
         $this->outputview->output_admin($view, $template, $data, $output);
         
+    }
+    
+    function spkprosesmesin_notif($post_array,$primary_key){
+        $proses = $post_array['proses_type'];
+        switch ($proses) {
+            case 1:
+                $proses_type = 'cetak';
+                break;
+            case 2:
+                $proses_type = 'coating';
+                break;
+            case 9:
+                $proses_type = 'sortir';
+                break;
+            case 5:
+                $proses_type = 'potong';
+                break;
+            case 6:
+                $proses_type = 'gluing';
+                break;
+            case 7:
+                $proses_type = 'plate';
+                break;
+            case 8:
+                $proses_type = 'pond';
+                break;
+            case 10:
+                $proses_type = 'packing';
+                break;
+        }
+        $data = array (
+            "subject" => "SPK Proses ".$proses_type." Baru",
+            "notif" => "SPK Induk ".$post_array['spk_induk_id']." Proses ".$proses_type." Di assign ke bagian Anda",
+            "type" => $proses_type,
+            "group_id" => "8",
+            "status" => "N"
+        );
+        $this->Notification_model->insert($data);
     }
     
     public function material() {
@@ -230,6 +290,25 @@ class Purchase extends CI_Controller {
                                 //}
                         //}
         }
+    function updatenotif()
+    {
+        $id = $this->input->post('groupId');
+        //log_message('IINFO', '=== UpdateNotif=== nilai id:'.$id);
+
+        $q = array('table_name' => 'notification',
+            'group_id' => $id,
+            'status' => 'R');
+
+        if($this->crud_model->updatenotif($q)){
+            $data = "success";
+        }else{
+            $data = implode("|",$q);
+        }
+
+        //log_message('IINFO', '=== UpdateNotif=== out');
+        
+        echo $data;
+    }
 	function callbackmesin($post_array,$private_key)
         {
                 //$bookdate = date('Y-m-d H:i:s');

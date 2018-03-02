@@ -55,6 +55,15 @@ class Mesin_model extends CI_Model{
 		$this->db->update($this->table,$data);
 	}
 	
+	function getprosestype($id)
+   {
+		$qu = $this->db
+			->select('proses_type')
+			->where('spk_proses_id', $id)
+			->get('spk_proses_mesin');
+		return $qu->row()->proses_type;
+   }
+
 //fungsi untuk menghapus data Daily berdasarkan id Daily
 	function deleteDaily($job_id,$job_type){
 		$this->db->where('job_id',$job_id);
@@ -82,6 +91,27 @@ class Mesin_model extends CI_Model{
 		return $data;
 		
 	}
+
+	function getallmesin()
+	{
+		$query = $this->db->query('select a.id, a.mesin_name, a.mesin_type, a.desc, (select count(b.spk_proses_id) from spk_proses_mesin b where b.mesin_id = a.id) as jumlahspk from mesin a');
+				
+		if($query->num_rows() > 0)
+		{
+			return $query->row_array();
+		}
+		
+		
+	}
+
+   function get_mesinid($id)
+   {
+		$qu = $this->db
+			->select('id')
+			->where('id', $id)
+			->get($this->table);
+		return $qu->row()->id;
+   }
 	
 	function getjob_id()
 	{
