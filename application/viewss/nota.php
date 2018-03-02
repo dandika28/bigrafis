@@ -1,4 +1,4 @@
-<?php if ($this->uri->segment(2)=='new') { ?>
+<?php if ($this->uri->segment(2)=='aaa') { ?>
 <div class="row">
 	<div class="col-xs-12">
 		<div>

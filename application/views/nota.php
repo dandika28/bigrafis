@@ -1,5 +1,5 @@
 <?php if ($this->uri->segment(2)=='export') { 
-	if ($success=='1'){
+	//if ($success=='1'){
 	?>
 <div class="row">
 	<div class="col-xs-12">
@@ -109,12 +109,7 @@
 </div>
 
 <?php 
-}else{
-	?>
 
-	ERROR
-
-<?php }
 } else if ($this->uri->segment(2)=='view') { ?>
 <div class="row">
 	<div class="col-md-12">
@@ -132,7 +127,7 @@
 								</label>
 							</div-->
 							<div class="form-input-box col-xs-6" id="projectname_input_box">
-								<input id="projectname" class="form-control" name="projectname" type="text" value maxlength="100">
+								<input id="projectname" class="form-control" type="text" value maxlength="100">
 							</div>
 						</div>
 						<div class="bDiv">
@@ -149,10 +144,11 @@
 									<tbody>
 										<?php $i = 1; foreach ($test as $key => $value) {?>
 										<tr>
-											<td><?= $i ?><input type="" name="spk_material_id" hidden value="<?php echo $value->spk_material_id;?>"></td>
+											<td><?= $i ?><input type="" name="spk_material_id[]" hidden value="<?php echo $value->spk_material_id;?>"></td>
 											<td><?php echo $value->material_name;?></td>
 											<td><?php echo $value->jumlah_material;?></td>
-											<td><input id="qtydeliver" class="form-control" name="qty_deliver" type="text" value maxlength="50"></td>
+											<td><input id="qtydeliver" class="form-control" name="qty_deliver[]" type="text" value maxlength="50">
+												<input hidden id="lastqty" name="" value="<?php echo ($value->qty_deliver != null)?$value->qty_deliver:0;?>"></td>
 
 										</tr>
 										<?php $i = $i+1; } ?>
@@ -162,7 +158,7 @@
 						</div>
 						<!--a href="<?php echo site_url($exporturl) ?>" title="Add Users" class="add-anchor add_button btn btn-primary">
 			                <i class="fa fa-file-excel-o"></i-->
-			                <button id="form-button-save" type="submit" class="btn btn-primary" name="btnPrint">Print</button> 
+			                <button id="form-button-save" type="submit" class="btn btn-primary">Print</button> 
 			            </a>
 					</form>
 				</div>

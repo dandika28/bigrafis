@@ -52,6 +52,24 @@ class Nota extends CI_Controller {
 		//$output = (object)array('data' => '' , 'output' => '' , 'js_files' => null , 'css_files' => null);
 
 		//if($this->input->post('btnPrint')){
+		//print_r($_POST);
+
+		//$data = $_POST;
+		for($i=0;$i<count($_POST['spk_material_id']);$i++){
+
+			$q=$this->crud_model->select('spk_material','qty_deliver','spk_material_id='.$_POST['spk_material_id'][$i],null,null,null)->result();
+			//print_r($q[0]->qty_deliver);
+			$qty = ($q[0]->qty_deliver!=null)?$q[0]->qty_deliver:0;
+			$qtyDeliver = $qty + $_POST['qty_deliver'][$i];
+			$condition = array('spk_material_id' => $_POST['spk_material_id'][$i]);
+			$data = array('spk_material_id' => $_POST['spk_material_id'][$i],
+				'qty_deliver' => $qtyDeliver );
+			$this->crud_model->update('spk_material', $data, $condition);
+		}
+		
+		//$q = $this->db->update_batch('spk_material', $data, 'spk_material_id');
+		//log_message('IINFO', 'SQL',$q);
+		/*
 		$spkMaterialId = $this->input->post('spk_material_id');
 		$qtydeliver = $this->input->post('qty_deliver');
 
@@ -63,25 +81,24 @@ class Nota extends CI_Controller {
 			$output['success'] = '0';
 
 		}else{
+		*/
+		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
 
-			$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
-
-			$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
+		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
 
 			//$output['ponumber'] = $headervalue[0]->spk_induk_id;
 			//$output['projectname'] = $headervalue[0]->product_name;
-			$output['test'] = $value;
+		$output['test'] = $value;
 
-			$output['success'] = '1';
-		}
+		$output['success'] = '1';
 
-
-       $data['judul'] = ' Nota Transfer';
+       	$data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'Export' => '');
 
         $template = 'metronic_template';
         $view = 'nota';
         $this->outputview->output_admin($view, $template, $data, $output);
+        
 	}
 
 	public function view($spk_induk)

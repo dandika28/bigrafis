@@ -49,6 +49,10 @@ class Crud_model extends CI_Model {
         $this->db->update($table_name, array('qty_deliver' => $qty_deliver));
 	}
 
+	function updatebatch($table, $data, $where){
+		$this->db->update_batch($table, $data, $where);
+	}
+
 	function updatenotif($data)
 	{
 		extract($data);
@@ -104,6 +108,7 @@ class Crud_model extends CI_Model {
 
 		return $this->db->get();
 	}
+
 }
 /* End of file crud_model.php */
 /* Location: ./application/models/crud_model.php */
