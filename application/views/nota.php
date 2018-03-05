@@ -120,16 +120,6 @@
 				</div>
 				<div class="box-body">
 					<form action="<?php echo site_url($exporturl) ?>" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
-						<div class="row" id="field">
-							<!--div class="form-display-as-box col-xs-2 control-label" id="projectname-display-as-box">
-								<label>
-									Project Name<span class="required">*</span>
-								</label>
-							</div-->
-							<div class="form-input-box col-xs-6" id="projectname_input_box">
-								<input id="projectname" class="form-control" type="text" value maxlength="100">
-							</div>
-						</div>
 						<div class="bDiv">
 							<div class="table-scrollable">
 								<table class="table table-bordered table-hover dataTable ">
@@ -147,7 +137,7 @@
 											<td><?= $i ?><input type="" name="spk_material_id[]" hidden value="<?php echo $value->spk_material_id;?>"></td>
 											<td><?php echo $value->material_name;?></td>
 											<td><?php echo $value->jumlah_material;?></td>
-											<td><input id="qtydeliver" class="form-control" name="qty_deliver[]" type="text" value maxlength="50">
+											<td><input id="qtydeliver" class="form-control" name="qty_deliver[]" type="text" value maxlength="50" required>
 												<input hidden id="lastqty" name="" value="<?php echo ($value->qty_deliver != null)?$value->qty_deliver:0;?>"></td>
 
 										</tr>
@@ -158,7 +148,7 @@
 						</div>
 						<!--a href="<?php echo site_url($exporturl) ?>" title="Add Users" class="add-anchor add_button btn btn-primary">
 			                <i class="fa fa-file-excel-o"></i-->
-			                <button id="form-button-save" type="submit" class="btn btn-primary">Print</button> 
+			                <button id="form-button-save" type="submit" class="btn btn-primary sendButton">Save & Print</button> 
 			            </a>
 					</form>
 				</div>

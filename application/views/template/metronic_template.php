@@ -449,6 +449,32 @@ Demo.init(); // init demo features
    Index.initChat();
    Index.initMiniCharts();
    Tasks.initDashboardWidget();
+
+/*
+    var result = $(".bDiv input").filter(function () {
+    return $.trim($(this).val()).length == 0
+      }).length == 0;
+
+    console.log("result" + result);
+
+   $('.sendButton').prop('disabled',true);
+    var inputs=jQuery.grep(inputs, function(input){
+        return input.length>0;
+    });
+    if(inputs.length>0) {
+        //return true;
+    
+    //return false;
+        //$("input[id='qtydeliver']").keyup(function(){
+            //if($(this).val().length !=0){
+                console.log('false')
+                $('.sendButton').prop("disabled", false);            
+            }
+            else{
+                console.log('true')
+                $('.sendButton').prop("disabled",true);
+            }
+        //})*/
 });
 </script>
 

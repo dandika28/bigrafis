@@ -99,7 +99,7 @@ class Purchase extends CI_Controller {
         $crud->set_subject('Material');
 		$crud->where('spk_induk_id',$spk_induk);
         $crud->set_table('spk_material');
-		$crud->unset_fields('modified_at');
+		$crud->unset_fields('modified_at','qty_deliver');
 		$crud->unset_columns('created_by','created_at');
         $crud->unset_print();
 		$crud->set_relation('kode_material', 'material', 'material_name');

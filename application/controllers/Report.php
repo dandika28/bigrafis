@@ -148,7 +148,7 @@ class Report extends CI_Controller {
 
         $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk)->result();
         $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
-        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.jumlah_material, spk_material.satuan, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
+        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.satuan, gudang.gudang_name, material.harga_satuan','spk_induk.spk_induk_id='.$spk_induk)->result();
         $valuehasil = $this->crud_model->relation('spk_induk', 'po','product', 'gudang','spk_induk.po_id=po.id', 'po.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, po.jumlah_unit,
             product.product_unit, product.product_price, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
 

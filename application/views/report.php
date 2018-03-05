@@ -81,12 +81,13 @@
 										<tr>
 											<td><?= $i ?></td>
 											<td><?php echo $value->material_name;?></td>
-											<td><?php echo $value->jumlah_material;?></td>
+											<td><?php echo $value->qty_deliver;?></td>
 											<td><?php echo $value->satuan;?></td>
-											<td>5000</td>
+											<td><?php echo $value->harga_satuan;?></td>
 											<td></td>
-											<td><?php $subtotal=$subtotal+(-8750); ?>-8,750.00</td>
+											<td>-<?php echo $totalperrow=$value->harga_satuan*$value->qty_deliver; ?></td>
 											<td><?php echo $value->gudang_name;?></td>
+											<?php $subtotal=$subtotal+$totalperrow;?>
 										</tr>
 										<?php $i=$i+1; }?>
 									</tbody>
@@ -94,19 +95,19 @@
 										<tr>
 											<td colspan="5" class="text-right">Subtotal</td>
 											<td></td>
-											<td class="dt-right"><?php echo $subtotal; ?></td>
+											<td class="dt-right">-<?php echo $subtotal; ?></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Subtotal Persediaan</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $subtotalsedia=$subtotalsedia+$subtotal;?></b></td>
+											<td class="dt-right"><b>-<?php echo $subtotalsedia=$subtotalsedia+$subtotal;?></b></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Total Penyusun Produk</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $totalsusunproduk=$totalsusunproduk+$subtotalsedia;?></b></td>
+											<td class="dt-right"><b>-<?php echo $totalsusunproduk=$totalsusunproduk+$subtotalsedia;?></b></td>
 											<td></td>
 										</tr>
 										<tr>
