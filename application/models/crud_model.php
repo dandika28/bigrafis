@@ -30,6 +30,29 @@ class Crud_model extends CI_Model {
 		return $this->db->get();
 	}
 
+	function selectdesc($table, $fields, $where, $limit = null, $order = null, $group_by = null)
+	{
+		$this->db->from($table);
+		$this->db->select($fields);
+		if ($where != null) {
+			$this->db->where($where);
+		}
+
+		if ($limit != null) {
+			$this->db->limit($limit);
+		}
+
+		if ($order != null) {
+			$this->db->order_by($order,"desc");
+		}
+
+		if ($group_by != null) {
+			$this->db->group_by($group_by);
+		}
+
+		return $this->db->get();
+	}
+
 	function insert($table, $data)
 	{
 		$this->db->insert($table, $data);

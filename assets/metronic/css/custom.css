@@ -103,3 +103,7 @@ tr.noBorder td{
    bottom: 0;
    width: 100%;
 }
+.sparkline-chart .title,
+.easy-pie-chart .title {
+  font-size: 12px;
+  }

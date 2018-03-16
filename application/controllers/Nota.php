@@ -22,11 +22,12 @@ class Nota extends CI_Controller {
         $crud->unset_columns('created_by','po_id','gudang_asal','gudang_tujuan','description','modified_at');
         $userid = $this->ion_auth->user()->row()->id;
 		$crud->field_type('created_by','hidden',$userid);
+		$crud->columns('spk_induk_id', 'spk_date', 'gudang_asal', 'gudang_tujuan', 'spk_status');
 		$crud->unset_fields('modified_at');
 		$crud->set_relation('gudang_asal', 'gudang', 'gudang_name');
 		$crud->set_relation('gudang_tujuan', 'gudang', 'gudang_name');
-		$crud->set_relation('po_id', 'po', 'no_po');
-		$crud->display_as('po_id','Nomer Purchase Order');
+		//$crud->set_relation('po_id', 'po', 'no_po');
+		//$crud->display_as('po_id','Nomer Purchase Order');
 		$crud->add_action('Add Nota', 'fa fa-paperclip', 'nota/view','edit_button');
 		$crud->unset_add();
         $crud->unset_edit();
@@ -55,41 +56,36 @@ class Nota extends CI_Controller {
 		//print_r($_POST);
 
 		//$data = $_POST;
+
+		$a;
+		$dataNotaTrf = array('spk_induk' => $spk_induk, 'status' => 'OK', 'created_by' => '1');
+		$this->crud_model->insert('nota_transfer', $dataNotaTrf);
+		$intrNumber = $this->crud_model->selectdesc('nota_transfer', 'id', null, null, 'id', null)->result();
+
 		for($i=0;$i<count($_POST['spk_material_id']);$i++){
 
-			$q=$this->crud_model->select('spk_material','qty_deliver','spk_material_id='.$_POST['spk_material_id'][$i],null,null,null)->result();
+			$q=$this->crud_model->select('spk_material','*','spk_material_id='.$_POST['spk_material_id'][$i],null,null,null)->result();
 			//print_r($q[0]->qty_deliver);
 			$qty = ($q[0]->qty_deliver!=null)?$q[0]->qty_deliver:0;
 			$qtyDeliver = $qty + $_POST['qty_deliver'][$i];
+			$a[$i]= $_POST['qty_deliver'][$i];
 			$condition = array('spk_material_id' => $_POST['spk_material_id'][$i]);
 			$data = array('spk_material_id' => $_POST['spk_material_id'][$i],
 				'qty_deliver' => $qtyDeliver );
 			$this->crud_model->update('spk_material', $data, $condition);
+
+			$dataNotaTrfMaterial = array('nota_id' => $intrNumber[0]->id, 'spk_material_id' => $q[0]->spk_material_id, 'qty_deliver' => $_POST['qty_deliver'][$i],
+				'mesin_id' => null, 'keterangan' => null);
+			$this->crud_model->insert('nota_transfer_material', $dataNotaTrfMaterial);
 		}
 		
-		//$q = $this->db->update_batch('spk_material', $data, 'spk_material_id');
-		//log_message('IINFO', 'SQL',$q);
-		/*
-		$spkMaterialId = $this->input->post('spk_material_id');
-		$qtydeliver = $this->input->post('qty_deliver');
-
-		$data = array('table_name' => 'spk_material',
-			'spk_material_id' => $spkMaterialId,
-			'qty_deliver' => $qtydeliver);
-
-		if($this->crud_model->updates($data)){
-			$output['success'] = '0';
-
-		}else{
-		*/
 		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
 
 		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
 
-			//$output['ponumber'] = $headervalue[0]->spk_induk_id;
-			//$output['projectname'] = $headervalue[0]->product_name;
 		$output['test'] = $value;
-
+		$output['qty'] = $a;
+		$output['intrNumber'] = $intrNumber[0]->id;
 		$output['success'] = '1';
 
        	$data['judul'] = ' Nota Transfer';

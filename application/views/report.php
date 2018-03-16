@@ -81,11 +81,11 @@
 										<tr>
 											<td><?= $i ?></td>
 											<td><?php echo $value->material_name;?></td>
-											<td><?php echo $value->qty_deliver;?></td>
+											<td><?php echo number_format($value->qty_deliver,0,",",".");?></td>
 											<td><?php echo $value->satuan;?></td>
-											<td><?php echo $value->harga_satuan;?></td>
+											<td><?php echo number_format($value->harga_satuan,0, ",", ".");?></td>
 											<td></td>
-											<td>-<?php echo $totalperrow=$value->harga_satuan*$value->qty_deliver; ?></td>
+											<td>-<?php echo number_format($totalperrow=$value->harga_satuan*$value->qty_deliver,0,",","."); ?></td>
 											<td><?php echo $value->gudang_name;?></td>
 											<?php $subtotal=$subtotal+$totalperrow;?>
 										</tr>
@@ -95,19 +95,19 @@
 										<tr>
 											<td colspan="5" class="text-right">Subtotal</td>
 											<td></td>
-											<td class="dt-right">-<?php echo $subtotal; ?></td>
+											<td class="dt-right">-<?php echo number_format($subtotal,0,",","."); ?></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Subtotal Persediaan</b></td>
 											<td></td>
-											<td class="dt-right"><b>-<?php echo $subtotalsedia=$subtotalsedia+$subtotal;?></b></td>
+											<td class="dt-right"><b>-<?php echo number_format($subtotalsedia=$subtotalsedia+$subtotal,0,",",".");?></b></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Total Penyusun Produk</b></td>
 											<td></td>
-											<td class="dt-right"><b>-<?php echo $totalsusunproduk=$totalsusunproduk+$subtotalsedia;?></b></td>
+											<td class="dt-right"><b>-<?php echo number_format($totalsusunproduk=$totalsusunproduk+$subtotalsedia,0,",",".");?></b></td>
 											<td></td>
 										</tr>
 										<tr>
@@ -116,23 +116,23 @@
 										<tr>
 											<td><?php echo $hasilProduksi->product_kode; ?></td>
 											<td><?php echo $hasilProduksi->product_name; ?></td>
-											<td class="dt-right"><?php echo $hasilProduksi->jumlah_unit; ?></td>
+											<td class="dt-right"><?php echo number_format($hasilProduksi->jumlah_unit,0,",","."); ?></td>
 											<td><?php echo $hasilProduksi->product_unit; ?></td>
 											<td class="dt-right"><?php echo $hasilProduksi->product_price; ?></td>
 											<td class="dt-right"></td>
-											<td class="dt-right"><?php echo $totalHasilProduksi=$totalHasilProduksi+$totalsusunproduk;?></b></td>
+											<td class="dt-right"><?php echo number_format($totalHasilProduksi=$totalHasilProduksi+$totalsusunproduk,0,",",".");?></b></td>
 											<td><?php echo $hasilProduksi->gudang_name; ?></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right">Subtotal</td>
 											<td></td>
-											<td class="dt-right"><?php echo $subTotalHasilProduksi=$subTotalHasilProduksi+$totalHasilProduksi;?></td>
+											<td class="dt-right"><?php echo number_format($subTotalHasilProduksi=$subTotalHasilProduksi+$totalHasilProduksi,0,",",".");?></td>
 											<td></td>
 										</tr>
 										<tr>
 											<td colspan="5" class="text-right dt-right"><b>Total Penyusun Produk</b></td>
 											<td></td>
-											<td class="dt-right"><b><?php echo $totalSusunProdukHasilProduksi=$totalSusunProdukHasilProduksi+$subTotalHasilProduksi;?></b></td>
+											<td class="dt-right"><b><?php echo number_format($totalSusunProdukHasilProduksi=$totalSusunProdukHasilProduksi+$subTotalHasilProduksi,0,",",".");?></b></td>
 											<td class="dt-right"></td>
 										</tr>
 									</tfoot>

@@ -41,7 +41,7 @@
 								</label><strong>:</strong>
 							</div>
 							<div class="form-input-box col-xs-10" id="intrnumber_input_box">
-								<div class="readonly_label"></div>
+								<div class="readonly_label"><?php echo $intrNumber;?></div>
 							</div>
 						</div>
 						<div class="bDiv">
@@ -64,7 +64,8 @@
 											<td><?= $i ?></td>
 											<td><?php echo date("d/m/Y");?></td>
 											<td><?php echo $value->material_name;?></td>
-											<td><?php echo $value->qty_deliver;?></td>
+											<!--td><?php echo $value->qty_deliver;?></td-->
+											<td><?php echo $qty[$i-1];?></td>
 											<td><?php echo $value->satuan;?></td>
 											<td></td>
 											<td></td>

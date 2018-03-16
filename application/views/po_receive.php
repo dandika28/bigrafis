@@ -119,11 +119,11 @@
 											<td><?= $i ?></td>
 											<td><?php echo $value->product_kode;?></td>
 											<td><?php echo $value->product_name;?></td>
-											<td><?php echo $value->jumlah_unit;?></td>
+											<td><?php echo number_format($value->jumlah_unit,0,",",".");?></td>
 											<td><?php echo $value->product_unit;?></td>
-											<td><?php echo $value->product_price;?></td>
+											<td><?php echo number_format($value->product_price,2,",",".");?></td>
 											<td><?php echo $discount=$discount+$value->discount;?></td>
-											<td><?php echo  (float) $subtotal = $subtotal+$value->jumlah_unit * $value->product_price;?></td>
+											<td><?php echo  number_format(((float) $subtotal = $subtotal+$value->jumlah_unit * $value->product_price),2,",",".");?></td>
 											<td><?php  echo $pajak = $pajak+$value->pajak; ?>%</td>
 										</tr>
 										<?php $i = $i+1; } ?>
@@ -133,7 +133,11 @@
 							<br>
 						
 						<div class="col-xs-12 text-center" style="height: 150px;">
-								
+							<?php
+								$biayapajak = $biayapajak + $pajak/100*$subtotal;
+								$total = $total + $biayapajak + $deliveryCost + $discount + $subtotal;
+								$saldo = $total - $dibayar;
+							?>	
 						</div>
 						<div class="col-xs-12">
 						<hr style="border-top: 1px solid #000" align="center" width="100%">
@@ -144,7 +148,49 @@
 								</label>
 							</div>
 							<div class="form-display-as-box col-xs-5">
-								<textarea class="form-control font-italic" rows="3"></textarea>
+								<label class="form-control" style="height: 100px;"><i>
+									<?php 
+										function penyebut($nilai) {
+									        $nilai = abs($nilai);
+									        $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+									        $temp = "";
+									        if ($nilai < 12) {
+									            $temp = " ". $huruf[$nilai];
+									        } else if ($nilai <20) {
+									            $temp = penyebut($nilai - 10). " belas";
+									        } else if ($nilai < 100) {
+									            $temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+									        } else if ($nilai < 200) {
+									            $temp = " seratus" . penyebut($nilai - 100);
+									        } else if ($nilai < 1000) {
+									            $temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+									        } else if ($nilai < 2000) {
+									            $temp = " seribu" . penyebut($nilai - 1000);
+									        } else if ($nilai < 1000000) {
+									            $temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+									        } else if ($nilai < 1000000000) {
+									            $temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+									        } else if ($nilai < 1000000000000) {
+									            $temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
+									        } else if ($nilai < 1000000000000000) {
+									            $temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
+									        }     
+									        return $temp;
+									    }
+
+									    function terbilang($nilai) {
+											if($nilai<0) {
+												$hasil = "minus ". trim(penyebut($nilai));
+											} else {
+												$hasil = trim(penyebut($nilai));
+											}     		
+											return $hasil;
+										}
+
+										$angka = $total - $dibayar;
+										echo terbilang($angka);
+									?></i>
+								</label>
 							</div>
 							<div class="col-xs-6">
 								<div class="row" id="projectname">
@@ -154,7 +200,7 @@
 										</label><strong>:</strong>
 									</div>
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><?php echo $discount; ?></div>
+										<div class="readonly_label dt-right"><?php echo number_format($discount,2,",","."); ?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -164,7 +210,7 @@
 										</label><strong>:</strong>
 									</div>
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><?php echo $biayapajak = $biayapajak + $pajak/100*$subtotal; ?></div>
+										<div class="readonly_label dt-right"><?php echo number_format($biayapajak,2,",","."); ?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -174,7 +220,7 @@
 										</label><strong>:</strong>
 									</div>
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><?php echo $deliveryCost; ?></div>
+										<div class="readonly_label dt-right"><?php echo number_format($deliveryCost,2,",","."); ?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -184,7 +230,7 @@
 										</label><strong>: Rp.</strong>
 									</div>
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><?php echo $total = $total + $biayapajak + $deliveryCost + $discount + $subtotal;?></div>
+										<div class="readonly_label dt-right"><?php echo number_format($total,2,",",".");?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -194,7 +240,7 @@
 										</label><strong>:</strong>
 									</div>
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><?php echo $dibayar; ?></div>
+										<div class="readonly_label dt-right"><?php echo number_format($dibayar,2,",","."); ?></div>
 									</div>
 								</div>
 								<div class="row">
@@ -205,7 +251,7 @@
 									</div>
 									
 									<div class="form-input-box col-xs-5">
-										<div class="readonly_label dt-right"><b><?php echo $total - $dibayar;?></b><hr style="border-top: 1px solid black"></div>
+										<div class="readonly_label dt-right"><b><?php echo number_format($saldo,2,",",".");?></b><hr style="border-top: 1px solid black"></div>
 									</div>
 								</div>
 							</div>
@@ -216,14 +262,12 @@
 								<?php echo $customername; ?>
 								<div class="box" style="height: 75px; border: none; box-shadow: none;">
 								</div>
-								<?php echo $customercontact;?>
 								<hr style="border-top: 1px solid #000" align="center" width="50%">
 							</div>
 							<div class="col-xs-6 text-center">
-								LUBANA SUCCESS ABADI
+								SUCCESS
 								<div class="box" style="height: 75px; border: none; box-shadow: none;">
 								</div>
-								Abas
 								<hr style="border-top: 1px solid #000" align="center" width="50%">
 							</div>
 						</div>

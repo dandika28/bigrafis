@@ -987,9 +987,9 @@ CREATE TABLE IF NOT EXISTS `material_category` (
   `createdby` varchar(20) DEFAULT '0',
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.material_category: ~17 rows (approximately)
+-- Dumping data for table big.material_category: ~14 rows (approximately)
 /*!40000 ALTER TABLE `material_category` DISABLE KEYS */;
 INSERT INTO `material_category` (`id`, `material_category_name`, `createdby`, `modified_at`) VALUES
 	(1, 'kertas', '1', '2018-02-10 20:57:12'),
@@ -1005,11 +1005,7 @@ INSERT INTO `material_category` (`id`, `material_category_name`, `createdby`, `m
 	(11, 'food', '1', '2018-02-19 21:18:02'),
 	(12, 'book', '1', '2018-02-19 21:30:46'),
 	(13, 'laminasi', '1', '2018-02-19 21:31:20'),
-	(14, 'plate', '1', '2018-02-19 21:32:29'),
-	(15, 'sparepart', '1', '2018-03-06 20:49:20'),
-	(16, 'finishgood', '1', '2018-03-06 20:55:14'),
-	(17, 'limbah', '1', '2018-03-06 20:49:15'),
-	(18, 'plastic', '1', '2018-03-06 20:49:18');
+	(14, 'plate', '1', '2018-02-19 21:32:29');
 /*!40000 ALTER TABLE `material_category` ENABLE KEYS */;
 
 -- Dumping structure for table big.menu
@@ -1066,9 +1062,9 @@ CREATE TABLE IF NOT EXISTS `mesin` (
   `created_by` varchar(10) DEFAULT NULL,
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.mesin: ~27 rows (approximately)
+-- Dumping data for table big.mesin: ~28 rows (approximately)
 /*!40000 ALTER TABLE `mesin` DISABLE KEYS */;
 INSERT INTO `mesin` (`id`, `mesin_name`, `mesin_type`, `desc`, `created_by`, `modified_at`) VALUES
 	(1, 'MESIN CD 6 WARNA', '1', '<p>MEREK NYA MESIN CD 6 WARNA</p>\r\n', '1', '2018-01-20 04:28:17'),
@@ -1081,11 +1077,11 @@ INSERT INTO `mesin` (`id`, `mesin_name`, `mesin_type`, `desc`, `created_by`, `mo
 	(8, 'MESIN SM 2 WARNA', '1', '<p>mesin sm 2 warna</p>\r\n', '1', '2018-02-09 22:55:13'),
 	(9, 'MESIN SM 1 WARNA', '1', '<p>MESIN SM 1 WARNA</p>\r\n', '1', '2018-02-09 22:55:35'),
 	(10, 'MESIN GTO 4 WARNA', '1', '<p>GTO 4 WARNA</p>\r\n', '1', '2018-02-09 22:55:54'),
-	(11, 'HOT FOIL - 1', '2', '<p>HOT FOIL - 1</p>\r\n', '1', '2018-02-09 22:57:57'),
-	(12, 'HOT FOIL - 2', '2', '<p>HOT FOIL - 2</p>\r\n', '1', '2018-02-09 22:58:16'),
-	(13, 'HOT FOIL - 3', '2', '<p>HOT FOIL - 3</p>\r\n', '1', '2018-02-09 22:58:28'),
-	(14, 'HOT FOIL - 4', '2', '<p>HOT FOIL - 4</p>\r\n', '1', '2018-02-09 22:58:42'),
-	(15, 'HOT FOIL - 5', '2', '<p>HOT FOIL - 5</p>\r\n', '1', '2018-02-09 22:59:07'),
+	(11, 'HOT FOIL - 1', '4', '<p>HOT FOIL - 1</p>\r\n', '1', '2018-03-11 06:08:17'),
+	(12, 'HOT FOIL - 2', '4', '<p>HOT FOIL - 2</p>\r\n', '1', '2018-03-11 06:08:20'),
+	(13, 'HOT FOIL - 3', '4', '<p>HOT FOIL - 3</p>\r\n', '1', '2018-03-11 06:08:23'),
+	(14, 'HOT FOIL - 4', '4', '<p>HOT FOIL - 4</p>\r\n', '1', '2018-03-11 06:08:26'),
+	(15, 'HOT FOIL - 5', '4', '<p>HOT FOIL - 5</p>\r\n', '1', '2018-03-11 06:08:30'),
 	(16, 'DIE CUT - 1', '8', '<p>DIE CUT - 1</p>\r\n', '1', '2018-02-09 22:59:49'),
 	(17, 'DIE CUT - 2', '8', '<p>DIE CUT - 2</p>\r\n', '1', '2018-02-09 23:00:04'),
 	(18, 'DIE CUT - 3', '8', '<p>DIE CUT - 3</p>\r\n', '1', '2018-02-09 23:00:19'),
@@ -1097,7 +1093,8 @@ INSERT INTO `mesin` (`id`, `mesin_name`, `mesin_type`, `desc`, `created_by`, `mo
 	(24, 'GLUE - 5', '6', '<p>GLUE - 5</p>\r\n', '1', '2018-02-09 23:02:01'),
 	(25, 'DIE - CUT 5', '8', '<p>DIE - CUT 5</p>\r\n', '1', '2018-02-18 09:28:18'),
 	(26, 'Mesin Cutting 1', '5', '<p>mesin potong kertas</p>\r\n', '1', '2018-02-18 09:28:58'),
-	(27, 'Mesin Cutting 2', '5', '<p>mesin potong 2</p>\r\n', '1', '2018-02-18 09:29:21');
+	(27, 'Mesin Cutting 2', '5', '<p>mesin potong 2</p>\r\n', '1', '2018-02-18 09:29:21'),
+	(28, 'CRON', '7', NULL, '1', '2018-03-10 11:14:05');
 /*!40000 ALTER TABLE `mesin` ENABLE KEYS */;
 
 -- Dumping structure for table big.mesin_category
@@ -1107,39 +1104,66 @@ CREATE TABLE IF NOT EXISTS `mesin_category` (
   `createdby` varchar(3) DEFAULT '0',
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`categorymesinid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.mesin_category: ~8 rows (approximately)
+-- Dumping data for table big.mesin_category: ~9 rows (approximately)
 /*!40000 ALTER TABLE `mesin_category` DISABLE KEYS */;
 INSERT INTO `mesin_category` (`categorymesinid`, `category`, `createdby`, `modified_at`) VALUES
 	(1, 'cetak', '1', '2018-01-20 04:10:35'),
 	(2, 'coating', '1', '2018-01-20 04:25:51'),
+	(4, 'hot-stamping', '1', '2018-03-11 06:08:09'),
 	(5, 'potong', '1', '2018-01-20 04:26:41'),
 	(6, 'gluing', '1', '2018-01-20 04:26:57'),
 	(7, 'plate', '1', '2018-02-10 10:41:48'),
 	(8, 'pond', '1', '2018-02-18 09:26:06'),
 	(9, 'sortir', '1', '2018-02-18 23:23:43'),
-	(10, 'packing', '1', '2018-02-18 23:24:11');
+	(10, 'packing', '1', '2018-02-18 23:24:11'),
+	(11, 'Laminating', '1', '2018-03-16 21:05:42');
 /*!40000 ALTER TABLE `mesin_category` ENABLE KEYS */;
 
 -- Dumping structure for table big.nota_transfer
 CREATE TABLE IF NOT EXISTS `nota_transfer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `spk_induk` int(11) DEFAULT '0',
-  `material` varchar(100) NOT NULL DEFAULT '0',
-  `mesin_id` int(11) DEFAULT '0',
-  `qty_request` int(11) DEFAULT '0',
-  `qty_deliver` int(11) DEFAULT '0',
   `status` varchar(10) DEFAULT '0',
-  `keterangan` varchar(50) DEFAULT '0',
   `created_by` varchar(10) DEFAULT NULL,
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY `id` (`id`)
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10006 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table big.nota_transfer: ~6 rows (approximately)
+/*!40000 ALTER TABLE `nota_transfer` DISABLE KEYS */;
+INSERT INTO `nota_transfer` (`id`, `spk_induk`, `status`, `created_by`, `modified_at`) VALUES
+	(10000, 246, 'OK', '1', '2018-03-13 23:33:35'),
+	(10001, 0, 'OK', '1', '2018-03-13 23:33:36'),
+	(10002, 246, 'OK', '1', '2018-03-13 23:35:34'),
+	(10003, 0, 'OK', '1', '2018-03-13 23:35:35'),
+	(10004, 246, 'OK', '1', '2018-03-13 23:39:32'),
+	(10005, 249, 'OK', '1', '2018-03-13 23:40:00');
+/*!40000 ALTER TABLE `nota_transfer` ENABLE KEYS */;
+
+-- Dumping structure for table big.nota_transfer_material
+CREATE TABLE IF NOT EXISTS `nota_transfer_material` (
+  `nota_id` int(11) NOT NULL,
+  `spk_material_id` int(11) NOT NULL,
+  `qty_deliver` int(11) NOT NULL,
+  `mesin_id` int(11) DEFAULT NULL,
+  `keterangan` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.nota_transfer: ~0 rows (approximately)
-/*!40000 ALTER TABLE `nota_transfer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nota_transfer` ENABLE KEYS */;
+-- Dumping data for table big.nota_transfer_material: ~8 rows (approximately)
+/*!40000 ALTER TABLE `nota_transfer_material` DISABLE KEYS */;
+INSERT INTO `nota_transfer_material` (`nota_id`, `spk_material_id`, `qty_deliver`, `mesin_id`, `keterangan`) VALUES
+	(10000, 6, 7, NULL, NULL),
+	(10000, 7, 8, NULL, NULL),
+	(10002, 6, 4, NULL, NULL),
+	(10002, 7, 2, NULL, NULL),
+	(10004, 6, 33, NULL, NULL),
+	(10004, 7, 32, NULL, NULL),
+	(10005, 8, 2, NULL, NULL),
+	(10005, 9, 3, NULL, NULL),
+	(10005, 10, 1, NULL, NULL);
+/*!40000 ALTER TABLE `nota_transfer_material` ENABLE KEYS */;
 
 -- Dumping structure for table big.notification
 CREATE TABLE IF NOT EXISTS `notification` (
@@ -1151,16 +1175,24 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.notification: ~5 rows (approximately)
+-- Dumping data for table big.notification: ~13 rows (approximately)
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
 INSERT INTO `notification` (`notification_id`, `notif`, `type`, `group_id`, `subject`, `date`, `status`) VALUES
 	(1, 'Anda mendapat PO Baru dari bagian Sales/Marketing', 'PO', '3', 'PO Baru Nomer ', '2018-02-24 15:33:23', 'N'),
 	(2, 'Anda mendapat PO Baru dari bagian Sales/Marketing', 'PO', '3', 'PO Baru Nomer PO/031/II/2018', '2018-02-24 15:35:53', 'N'),
-	(3, 'Anda mendapat SPK Baru dari bagian Production', 'SPKINDUK', '5', 'SPK Induk Baru Nomer 246', '2018-03-02 10:03:37', 'R'),
-	(4, 'SPK Induk  Proses potong Di assign ke bagian Anda', 'potong', '8', 'SPK Proses potong Baru', '2018-02-24 16:06:59', 'N'),
-	(5, 'SPK Induk  Proses sortir Di assign ke bagian Anda', 'sortir', '8', 'SPK Proses sortir Baru', '2018-02-24 16:06:23', 'N');
+	(3, 'Anda mendapat SPK Baru dari bagian Production', 'SPKINDUK', '5', 'SPK Induk Baru Nomer 246', '2018-03-02 18:00:11', 'R'),
+	(4, 'SPK Induk  Proses potong Di assign ke bagian Anda', 'potong', '8', 'SPK Proses potong Baru', '2018-03-02 18:01:46', 'R'),
+	(5, 'SPK Induk  Proses sortir Di assign ke bagian Anda', 'sortir', '8', 'SPK Proses sortir Baru', '2018-03-02 18:01:46', 'R'),
+	(6, 'Anda mendapat SPK Baru dari bagian Production', 'SPKINDUK', '5', 'SPK Induk Baru Nomer 249', '2018-03-10 11:07:58', 'R'),
+	(7, 'SPK Induk  Proses cetak Di assign ke bagian Anda', 'cetak', '8', 'SPK Proses cetak Baru', '2018-03-10 11:25:35', 'R'),
+	(8, 'SPK Induk  Proses potong Di assign ke bagian Anda', 'potong', '8', 'SPK Proses potong Baru', '2018-03-10 12:22:16', 'R'),
+	(9, 'SPK Induk  Proses coating Di assign ke bagian Anda', 'coating', '8', 'SPK Proses coating Baru', '2018-03-10 12:22:16', 'R'),
+	(10, 'SPK Induk  Proses pond Di assign ke bagian Anda', 'pond', '8', 'SPK Proses pond Baru', '2018-03-10 12:22:16', 'R'),
+	(11, 'SPK Induk  Proses sortir Di assign ke bagian Anda', 'sortir', '8', 'SPK Proses sortir Baru', '2018-03-10 12:22:16', 'R'),
+	(12, 'SPK Induk  Proses gluing Di assign ke bagian Anda', 'gluing', '8', 'SPK Proses gluing Baru', '2018-03-10 12:22:16', 'R'),
+	(13, 'SPK Induk  Proses packing Di assign ke bagian Anda', 'packing', '8', 'SPK Proses packing Baru', '2018-03-10 12:22:16', 'R');
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 
 -- Dumping structure for table big.operatormesin
@@ -1172,19 +1204,52 @@ CREATE TABLE IF NOT EXISTS `operatormesin` (
   `jobfinish` int(11) NOT NULL,
   `role` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.operatormesin: ~8 rows (approximately)
+-- Dumping data for table big.operatormesin: ~9 rows (approximately)
 /*!40000 ALTER TABLE `operatormesin` DISABLE KEYS */;
 INSERT INTO `operatormesin` (`id`, `operatorname`, `created_by`, `modified_at`, `jobfinish`, `role`) VALUES
-	(1, 'Dika', '1', '2018-02-21 13:57:51', 2, 1),
-	(2, 'Deki', '1', '2018-02-21 15:25:54', 2240473, 2),
-	(3, 'wawan', '1', '2018-02-21 16:37:33', 6001, 6),
+	(1, 'Dika', '1', '2018-03-10 12:17:16', 1000002, 2),
+	(2, 'Deki', '1', '2018-03-11 08:21:20', 2263523, 2),
+	(3, 'wawan', '1', '2018-03-10 06:35:16', 9001, 6),
 	(4, 'Sueb', '1', '2018-02-21 13:58:27', 0, 7),
 	(5, 'jhon', '1', '2018-02-21 13:58:38', 18022, 8),
-	(6, 'Aryo', '1', '2018-02-21 13:58:46', 0, 5),
+	(6, 'Aryo', '1', '2018-03-11 08:18:42', 30700, 5),
 	(7, 'mukmim', '1', '2018-02-21 13:59:04', 0, 9),
-	(8, 'Udin', '1', '2018-02-21 13:59:39', 0, 10);
+	(8, 'Udin', '1', '2018-02-21 13:59:39', 0, 10),
+	(9, 'octa', '1', '2018-03-10 12:24:05', 0, 9),
+	(10, 'M. Soleh', '1', '2018-03-16 17:10:22', 0, 1),
+	(11, 'Salman', '1', '2018-03-16 17:10:37', 0, 1),
+	(12, 'Ramdhani', '1', '2018-03-16 21:01:04', 0, 1),
+	(13, 'Budi Santoso', '1', '2018-03-16 21:01:14', 0, 1),
+	(14, 'Aswin', '1', '2018-03-16 21:01:26', 0, 1),
+	(15, 'Solehudin', '1', '2018-03-16 21:01:31', 0, 1),
+	(16, 'Alip Santoso', '1', '2018-03-16 21:01:37', 0, 1),
+	(17, 'Maman Suhaemi', '1', '2018-03-16 21:01:46', 0, 8),
+	(18, 'Turiman', '1', '2018-03-16 21:01:51', 0, 8),
+	(19, 'Fajar Arifin', '1', '2018-03-16 21:01:58', 0, 8),
+	(20, 'Achmad Tajudin', '1', '2018-03-16 21:02:05', 0, 8),
+	(21, 'Ait Kustiana', '1', '2018-03-16 21:02:13', 0, 4),
+	(22, 'Kiki Rizki', '1', '2018-03-16 21:02:18', 0, 4),
+	(23, 'Syaiful Bahri', '1', '2018-03-16 21:02:27', 0, 4),
+	(24, 'Gemi Santoso', '1', '2018-03-16 21:02:33', 0, 4),
+	(25, 'Taryono', '1', '2018-03-16 21:02:38', 0, 4),
+	(26, 'Rahmat Kurniawan Saputra', '1', '2018-03-16 21:02:45', 0, 4),
+	(27, 'Hardiyo', '1', '2018-03-16 21:02:51', 0, 4),
+	(28, 'Anton Wibisono', '1', '2018-03-16 21:02:57', 0, 4),
+	(29, 'Iwan Gunawan', '1', '2018-03-16 21:03:32', 0, 6),
+	(30, 'Agus Hermansyah', '1', '2018-03-16 21:03:40', 0, 6),
+	(31, 'Prengki Saputra', '1', '2018-03-16 21:03:46', 0, 6),
+	(32, 'Januarudin', '1', '2018-03-16 21:03:54', 0, 6),
+	(33, 'Mansyur', '1', '2018-03-16 21:04:00', 0, 6),
+	(34, 'Ipan Sopian', '1', '2018-03-16 21:04:13', 0, 5),
+	(35, 'Johan Susanto', '1', '2018-03-16 21:04:19', 0, 5),
+	(36, 'Muhamad Roi', '1', '2018-03-16 21:04:26', 0, 5),
+	(37, 'Muradi', '1', '2018-03-16 21:04:32', 0, 2),
+	(38, 'Supriyanto ', '1', '2018-03-16 21:04:37', 0, 2),
+	(39, 'Ilyas Gani', '1', '2018-03-16 21:04:43', 0, 2),
+	(40, 'Sukarman', '1', '2018-03-16 21:04:49', 0, 2),
+	(41, 'Prayitno', '1', '2018-03-16 21:08:20', 0, 11);
 /*!40000 ALTER TABLE `operatormesin` ENABLE KEYS */;
 
 -- Dumping structure for table big.po
@@ -1261,19 +1326,21 @@ CREATE TABLE IF NOT EXISTS `proses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `proses` varchar(50) DEFAULT '0',
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.proses: ~8 rows (approximately)
+-- Dumping data for table big.proses: ~9 rows (approximately)
 /*!40000 ALTER TABLE `proses` DISABLE KEYS */;
 INSERT INTO `proses` (`id`, `proses`) VALUES
 	(1, 'cetak'),
 	(2, 'coating'),
+	(4, 'hot-stamping'),
 	(5, 'potong'),
 	(6, 'gluing'),
 	(7, 'plate'),
 	(8, 'pond'),
 	(9, 'sortir'),
-	(10, 'packing');
+	(10, 'packing'),
+	(11, 'Laminating');
 /*!40000 ALTER TABLE `proses` ENABLE KEYS */;
 
 -- Dumping structure for table big.settings
@@ -1312,25 +1379,27 @@ INSERT INTO `settings_orig` (`id_settings`, `judul`, `nama_perusahaan`, `alamat`
 
 -- Dumping structure for table big.spk_induk
 CREATE TABLE IF NOT EXISTS `spk_induk` (
-  `spk_induk_id` int(11) NOT NULL,
+  `spk_induk_id` int(11) NOT NULL AUTO_INCREMENT,
   `po_id` int(11) NOT NULL,
   `spk_date` date NOT NULL,
   `description` varchar(100) NOT NULL,
   `gudang_asal` varchar(10) NOT NULL,
   `gudang_tujuan` varchar(10) NOT NULL,
   `spk_status` enum('New','WIP','Hold','Finish') NOT NULL,
+  `status` int(1) NOT NULL,
   `created_by` varchar(10) NOT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`spk_induk_id`),
   KEY `po_id` (`po_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.spk_induk: ~3 rows (approximately)
+-- Dumping data for table big.spk_induk: ~4 rows (approximately)
 /*!40000 ALTER TABLE `spk_induk` DISABLE KEYS */;
-INSERT INTO `spk_induk` (`spk_induk_id`, `po_id`, `spk_date`, `description`, `gudang_asal`, `gudang_tujuan`, `spk_status`, `created_by`, `modified_at`) VALUES
-	(246, 3, '2018-02-21', 'test', '3', '2', 'New', '1', '2018-02-24 15:45:23'),
-	(247, 1, '2018-01-30', 'pro ares mulut tenggorokan qty100000', '3', '1', 'WIP', '1', '2018-02-21 12:56:22'),
-	(248, 2, '2018-02-22', 'mohon di kejar ', '3', '2', '', '1', '2018-02-21 07:46:36');
+INSERT INTO `spk_induk` (`spk_induk_id`, `po_id`, `spk_date`, `description`, `gudang_asal`, `gudang_tujuan`, `spk_status`, `status`, `created_by`, `modified_at`) VALUES
+	(246, 3, '2018-02-21', 'test', '3', '2', 'New', 1, '1', '2018-03-16 17:23:50'),
+	(247, 1, '2018-01-30', 'pro ares mulut tenggorokan qty100000', '3', '1', 'WIP', 1, '1', '2018-03-16 17:23:52'),
+	(248, 2, '2018-02-22', 'mohon di kejar ', '3', '2', '', 0, '1', '2018-03-16 17:39:53'),
+	(249, 1, '2018-03-10', 'test', '3', '1', 'New', 1, '1', '2018-03-16 17:23:57');
 /*!40000 ALTER TABLE `spk_induk` ENABLE KEYS */;
 
 -- Dumping structure for table big.spk_material
@@ -1343,17 +1412,21 @@ CREATE TABLE IF NOT EXISTS `spk_material` (
   `gudang_id` varchar(5) DEFAULT NULL,
   `qty_deliver` int(11) DEFAULT NULL,
   UNIQUE KEY `spk_material_id` (`spk_material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.spk_material: ~6 rows (approximately)
+-- Dumping data for table big.spk_material: ~10 rows (approximately)
 /*!40000 ALTER TABLE `spk_material` DISABLE KEYS */;
 INSERT INTO `spk_material` (`spk_induk_id`, `spk_material_id`, `kode_material`, `jumlah_material`, `satuan`, `gudang_id`, `qty_deliver`) VALUES
-	(247, 1, 2, 2, 'Kg', '1', 11),
-	(247, 2, 1, 20, 'Riem', '1', 12),
-	(247, 3, 3, NULL, 'Riem', '1', 13),
-	(247, 4, 2, 777777, 'Riem', '3', 13),
-	(248, 5, 187, 30000, 'lbr', '3', 2001),
-	(248, 6, 2, 20000, 'Riem', '3', 0);
+	(247, 1, 2, 2, 'Kg', '1', 1),
+	(247, 2, 1, 20, 'Riem', '1', 10),
+	(247, 3, 1, NULL, 'Riem', '1', 78),
+	(247, 4, 2, 777777, 'Riem', '3', 13332),
+	(248, 5, 187, 30000, 'lbr', '3', 200),
+	(246, 6, 185, 1000, 'Riem', '1', 699),
+	(246, 7, 13, 2, 'Kg', '1', 697),
+	(249, 8, 8, 15, 'Liter', '3', 1312),
+	(249, 9, 57, 1000, 'Riem', '3', 1311),
+	(249, 10, 10, 2, 'Kg', '3', 1312);
 /*!40000 ALTER TABLE `spk_material` ENABLE KEYS */;
 
 -- Dumping structure for table big.spk_proses_mesin
@@ -1383,21 +1456,28 @@ CREATE TABLE IF NOT EXISTS `spk_proses_mesin` (
   PRIMARY KEY (`spk_proses_id`),
   KEY `spk_induk` (`spk_induk`),
   KEY `mesin_id` (`mesin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.spk_proses_mesin: ~10 rows (approximately)
+-- Dumping data for table big.spk_proses_mesin: ~17 rows (approximately)
 /*!40000 ALTER TABLE `spk_proses_mesin` DISABLE KEYS */;
 INSERT INTO `spk_proses_mesin` (`spk_proses_id`, `proses_type`, `spk_induk`, `mesin_id`, `qty_order`, `qty_finish`, `nama_kertas`, `ukuran_kertas`, `jumlah`, `warna`, `catatan_khusus`, `created_by`, `modified_at`, `created_at`, `status_spk`, `ukuran_kertas_plano`, `description`, `ukuran_kertas_potong`, `varnish_type`, `lem_type`, `proses_ke_mesin`, `operator_mesin`) VALUES
 	(1, '2', 247, 4, 600000, 556713, 'ivory', '72x56', '110000', 'C,M,Y,K,', 'perhatikan register, warna dan hasil cetakan', '1', '2018-02-21 14:18:39', '2018-01-30 16:49:55', 'Hold', '', 'mesin rusak', '', '', NULL, NULL, '2'),
-	(2, '1', 247, 1, 50000, 20000, 'IVORY IP 230 72x113', '40x40', '200', 'putih', 'harap yang rapi yaa', '1', '2018-02-21 15:31:51', '2018-02-15 00:00:00', 'Finish', '', '', '', '', NULL, NULL, '1'),
-	(3, '7', 247, 11, 5000, 1000, '', '', '5000', '', 'yg rapih', '4', '2018-03-01 21:58:28', '2018-02-19 00:00:00', 'WIP', '', '', '', 'doft', NULL, NULL, '5'),
+	(2, '1', 247, 1, 50000, 55000, 'IVORY IP 230 72x113', '40x40', '200', 'putih', 'harap yang rapi yaa', '1', '2018-03-11 08:22:18', '2018-02-15 00:00:00', 'Finish', '', '', '', '', NULL, NULL, '1'),
+	(3, '2', 247, 11, 5000, 3000, '', '', '5000', '', 'yg rapih', '1', '2018-03-10 06:33:44', '2018-02-19 00:00:00', 'WIP', '', '', '', 'doft', NULL, NULL, '2'),
 	(4, '5', 247, 27, 100000, 35000, 'A4', '', '20 rim', '', '', '1', '2018-02-19 22:49:34', '2018-02-19 00:00:00', 'WIP', '4x4', '', '2x2', '', NULL, '1', '2'),
-	(5, '6', 247, 22, 20000, 18022, '', '', '20000', '', 'rapet yaa', '1', '2018-02-19 22:51:44', '2018-02-16 00:00:00', 'WIP', '', '', '', '', 'aibon', NULL, '5'),
+	(5, '6', 247, 22, 20000, 3000, '', '', '20000', '', 'rapet yaa', '1', '2018-03-10 06:35:16', '2018-02-16 00:00:00', 'Finish', '', '', '', '', 'aibon', NULL, '3'),
 	(6, '1', 248, 2, 8000, 6811, 'A4', '20x20', '8800', 'c,m.y,k', 'dominan kanan', '1', '2018-02-21 08:50:30', '2018-02-21 00:00:00', 'Finish', '', '', '', '', NULL, NULL, '2'),
-	(7, '2', 248, 4, 20000, 50, '', '', '', '', '', '1', '2018-02-21 15:26:49', '0000-00-00 00:00:00', 'WIP', '', '', '', '', NULL, NULL, '2'),
+	(7, '2', 248, 4, 20000, 20050, '', '', '', '', '', '1', '2018-03-11 08:21:20', '0000-00-00 00:00:00', 'WIP', '', '', '', '', NULL, NULL, '2'),
 	(8, '6', 248, 20, 12000, 1500, '', '', '44444', '', '', '1', '2018-02-21 16:37:33', '2018-02-21 00:00:00', 'WIP', '', '4444', '', '', 'keut', NULL, '3'),
-	(9, '5', 246, 26, 100000, 0, 'c', '', '111111', '', 'c', '1', '2018-02-24 15:55:57', '2018-02-22 00:00:00', 'New', '2x2', '', '3x3', '', NULL, '8', NULL),
-	(10, '9', 247, 0, 100000, 0, '', '', '100000', '', '', '1', '2018-02-24 16:06:23', '2018-02-21 00:00:00', 'New', '', '', '', '', NULL, NULL, NULL);
+	(9, '5', 246, 26, 100000, 3500, 'c', '', '111111', '', 'c', '1', '2018-03-11 08:18:42', '2018-02-22 00:00:00', 'WIP', '2x2', 'bbbb', '3x3', '', NULL, '8', '6'),
+	(10, '9', 247, 0, 100000, 0, '', '', '100000', '', '', '1', '2018-02-24 16:06:23', '2018-02-21 00:00:00', 'New', '', '', '', '', NULL, NULL, NULL),
+	(11, '1', 249, 1, 1000000, 100000, 'test', '2x5', '1000', 'cmyk', 'glossy', '1', '2018-03-10 11:28:43', '2018-03-10 00:00:00', 'WIP', '', '', '', '', NULL, NULL, '1'),
+	(12, '5', 249, 27, 1000000, 0, 'plano', '', '3000', '', '', '1', '2018-03-10 11:47:59', '2018-03-10 00:00:00', 'New', '3x4', '', '1x2', '', NULL, '3', NULL),
+	(13, '2', 249, 4, 10000, 0, '', '', '', '', '', '1', '2018-03-10 12:02:51', '2018-03-10 00:00:00', 'New', '', '', '', 'WB', NULL, NULL, NULL),
+	(14, '8', 249, 18, 1000000, 0, '', '', '', '', '', '1', '2018-03-10 12:03:56', '2018-03-10 00:00:00', 'New', '', '', '', '', NULL, NULL, NULL),
+	(15, '9', 249, 0, 1000000, 0, '', '', '', '', '', '1', '2018-03-10 12:06:05', '2018-03-10 00:00:00', 'New', '', '', '', '', NULL, NULL, NULL),
+	(16, '6', 249, 22, 1000000, 0, '', '', '', '', '', '1', '2018-03-10 12:07:22', '2018-03-10 00:00:00', 'New', '', '', '', '', 'aibon', NULL, NULL),
+	(17, '10', 249, 0, 1000000, 0, '', '', '', '', '', '1', '2018-03-10 12:07:59', '2018-03-10 00:00:00', 'New', '', '', '', '', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `spk_proses_mesin` ENABLE KEYS */;
 
 -- Dumping structure for table big.users
@@ -1425,10 +1505,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table big.users: ~4 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-	(1, '127.0.0.1', 'admin', '$2y$08$v.Lr4yujxQxzZNdmCpgJWu7WLR5hzFDxkh0mRRmSuBartWDE93ySO', '', 'admin@admin.com', NULL, 'asGsHoh0iWTpOuVLM.EMUO900526bdd0557906ac', 1421981304, NULL, 1268889823, 1520256095, 1, 'Admin', 'System', 'ADMIN', '1234567890'),
+	(1, '127.0.0.1', 'admin', '$2y$08$v.Lr4yujxQxzZNdmCpgJWu7WLR5hzFDxkh0mRRmSuBartWDE93ySO', '', 'admin@admin.com', NULL, 'asGsHoh0iWTpOuVLM.EMUO900526bdd0557906ac', 1421981304, NULL, 1268889823, 1521208820, 1, 'Admin', 'System', 'ADMIN', '1234567890'),
 	(2, '::1', 'user', '$2y$08$EvJBduv65f1wQQ39WNs3R.tuWvZAG5NSCE9Q29eLniyD/6OlownAG', NULL, 'indr4@ymail.com', NULL, NULL, NULL, NULL, 1501733042, 1518238464, 1, 'User', 'System', NULL, '081282222827'),
-	(3, '::1', 'operatormesin', '$2y$08$TMjAbBw.FPHxOUaeJo3VueM96MLxvbB/9AMBDzYUFjl6ewPz63xdi', NULL, 'operatormesin@bigrafis.com', NULL, NULL, NULL, NULL, 1519044464, 1519913268, 1, 'operator', 'mesin', NULL, '666666666'),
-	(4, '::1', 'gudang', '$2y$08$v.Lr4yujxQxzZNdmCpgJWu7WLR5hzFDxkh0mRRmSuBartWDE93ySO', NULL, 'gu@dang.com', NULL, NULL, NULL, NULL, 1519189506, 1519959993, 1, 'gu', 'dang', NULL, '111111111');
+	(3, '::1', 'operatormesin', '$2y$08$TMjAbBw.FPHxOUaeJo3VueM96MLxvbB/9AMBDzYUFjl6ewPz63xdi', NULL, 'operatormesin@bigrafis.com', NULL, NULL, NULL, NULL, 1519044464, 1520725087, 1, 'operator', 'mesin', NULL, '666666666'),
+	(4, '::1', 'gudang', '$2y$08$DWj0X.FrPCZoWdZ4UTYhY.c6V4z7QU2kUh6I3X/ucV.bJ5D3Ak88W', NULL, 'gu@dang.com', NULL, NULL, NULL, NULL, 1519189506, 1520654859, 1, 'gu', 'dang', NULL, '111111111');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table big.users_groups

@@ -11,6 +11,7 @@ class Purchase extends CI_Controller {
 		$this->load->model('User_groups_model');
 		$this->load->model('Operatormesin_model');
         $this->load->model('Notification_model');
+        $this->load->model('Spkmesin_model');
 		$this->load->library('gc_dependent_select');
         $this->load->model('crud_model');
     }
@@ -61,6 +62,7 @@ class Purchase extends CI_Controller {
         $crud->set_subject('SPK Produksi');
         $crud->set_table('spk_induk');
         //$crud->set_field_upload('cover', 'assets/uploads/covers/movie_category');
+        $crud->where('status',1);
 		$crud->unset_columns('created_by','po_id','gudang_asal','gudang_tujuan','description','modified_at');
         $userid = $this->ion_auth->user()->row()->id;
 		$crud->field_type('created_by','hidden',$userid);
@@ -71,7 +73,9 @@ class Purchase extends CI_Controller {
 		$crud->display_as('po_id','Nomer Purchase Order');
 		$crud->add_action('Material', 'fa fa-paperclip', 'purchase/spk_material','edit_button');
         $crud->add_action('Report', 'fa fa-book','report/report_spk_induk','');
+        $crud->add_action('Delete', 'fa fa-trash-o','purchase/delete_spk_induk', '');
 		$crud->unset_print();
+        $crud->unset_delete();
         $crud->callback_after_insert(array($this,'spkinduk_notif'));
         $output = $crud->render();
         
@@ -148,6 +152,8 @@ class Purchase extends CI_Controller {
 				$crud->field_type('operator_mesin','dropdown', $ops);
 				
 			}
+            $crud->callback_before_insert(array($this,'spkmesin_qtyfinish'));
+            $crud->callback_before_update(array($this,'spkmesin_qtyfinish'));
 			$crud->callback_after_insert(array($this,'operatormesinupdate'));
 			$crud->callback_after_update(array($this,'operatormesinupdate'));
 			
@@ -166,13 +172,15 @@ class Purchase extends CI_Controller {
 		
 		
 		$crud->callback_field('operator_mesin',array($this,'callbackoperator'));
+        $crud->callback_before_insert(array($this,'spkmesin_qtyfinish'));
+        $crud->callback_before_update(array($this,'spkmesin_qtyfinish'));
 		$crud->callback_after_insert(array($this,'operatormesinupdate'));
 		$crud->callback_after_update(array($this,'operatormesinupdate'));
         $crud->callback_after_insert(array($this,'spkprosesmesin_notif'));
 		$crud->unset_print();
 		}
         
-        $crud->add_action('Cetak','fa fa-book','report/cetakspk', '');
+        $crud->add_action('Print','fa fa-book','report/cetakspk', '');
 		$output = $crud->render();
 		
         $data['preview'] = 'set';
@@ -316,12 +324,20 @@ class Purchase extends CI_Controller {
         }
 	function operatormesinupdate($post_array,$primary_key){
                 
-           $jobcurrent = $this->Operatormesin_model->getjobnumber($post_array['operator_mesin']);
-		   //echo $jobcurrent;
-		   $jobupdate = $post_array['qty_finish'] + $jobcurrent;
-		   //echo $jobupdate;exit;
-		   $this->Operatormesin_model->updatejob($post_array['operator_mesin'], $jobupdate);
+            $jobcurrent = $this->Operatormesin_model->getjobnumber($post_array['operator_mesin']);
+            $jobupdate = $post_array['qty_finish'] + $jobcurrent;
+            $this->Operatormesin_model->updatejob($post_array['operator_mesin'], $jobupdate);
+         
         }
+
+    function spkmesin_qtyfinish($post_array,$primary_key){
+            
+           $qtyfisnishcurrent = $this->Spkmesin_model->getqtyfinish($primary_key);
+           $qtyfinish = $post_array['qty_finish'] + $qtyfisnishcurrent ;
+           $post_array['qty_finish'] = $qtyfinish;
+           return $post_array;
+           
+        } 
 	public function operator_role()
         {
                 //if (!empty($_GET['q'])){
@@ -351,4 +367,11 @@ class Purchase extends CI_Controller {
                 //$bookdate = date('Y-m-d H:i:s');
                 return "<select id='field-operator_mesin' name='operator_mesin' class='chosen-select chzn-done' data-placeholder='Select Operator' style='display: ;'></select>";
         }
+
+    public function delete_spk_induk($spk_induk){
+        $data = array('status' => '0');
+        $condition  = array('spk_induk_id' => $spk_induk);
+        $this->crud_model->update('spk_induk', $data, $condition);
+        redirect('purchase/spk_induk');
+    }
 }

@@ -17,6 +17,8 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 				
 	$(document).on('change', '#field-proses_type', function(){
 		var proses_type = $("#field-proses_type").val();
@@ -47,6 +49,8 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 				
 			} else if ($('#field-proses_type').val() == '1') {
 				console.log(proses_type);
@@ -87,6 +91,8 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 			
 			} else if ($('#field-proses_type').val() == '5') {
 				console.log(proses_type);
@@ -127,6 +133,8 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 			
 			}  else if ($('#field-proses_type').val() == '10') {
 				console.log(proses_type);
@@ -147,6 +155,29 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
+			}  else if ($('#field-proses_type').val() == '4') {
+				console.log(proses_type);
+				$('#field-ukuran_kertas').hide();
+				$('#ukuran_kertas_display_as_box').hide();
+				$('#field-nama_kertas').hide();
+				$('#nama_kertas_display_as_box').hide();
+				$('#field-warna').hide();
+				$('#warna_display_as_box').hide();
+				$('#field-ukuran_kertas_plano').hide();
+				$('#ukuran_kertas_plano_display_as_box').hide();
+				$('#ukuran_kertas_potong_display_as_box').hide();
+				$('#field-ukuran_kertas_potong').hide();
+				$('#varnish_type_display_as_box').hide();
+				$('#field-varnish_type').hide();
+				$('#lem_type_display_as_box').hide();
+				$('#field-lem_type').hide();
+				$('#proses_ke_mesin_input_box').hide();
+				$('#proses_ke_mesin_display_as_box').hide();
+				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 			
 			} else if ($('#field-proses_type').val() == '9') {
 				console.log(proses_type);
@@ -167,6 +198,8 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_input_box').hide();
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
+				$('#field-jumlah').hide();
+				$('#jumlah_display_as_box').hide();
 			}  else if ($('#field-proses_type').val() == '7') {
 				console.log(proses_type);
 				$('#field-ukuran_kertas').hide();

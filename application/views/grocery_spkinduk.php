@@ -17,7 +17,7 @@
 						</div>
 						<div class="portlet-body">
 							<div class="row">
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number transactions" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='1' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -39,7 +39,7 @@
 								</div>
 								<div class="margin-bottom-10 visible-sm">
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number visits" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='2' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -61,7 +61,29 @@
 								</div>
 								<div class="margin-bottom-10 visible-sm">
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
+									<div class="easy-pie-chart">
+										<div class="number transactions" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='4' and spk_induk='".$this->uri->segment(4)."'");
+											foreach ($query->result() as $row)
+											{
+												echo $row->persen;
+											} ?>">
+											<span>
+											<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='4' and spk_induk='".$this->uri->segment(4)."'");
+											foreach ($query->result() as $row)
+											{
+												echo $row->persen;
+											} ?> </span>
+											%
+										</div>
+										<a class="title" href="javascript:;">
+										Hot-Stamping <i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+								<div class="margin-bottom-10 visible-sm">
+								</div>
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number bounce" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='5' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -83,7 +105,7 @@
 								</div>
 								<div class="margin-bottom-10 visible-sm">
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number transactions" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='6' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -105,7 +127,7 @@
 								</div>
 								<div class="margin-bottom-10 visible-sm">
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number visits" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='10' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -127,7 +149,7 @@
 								</div>
 								<div class="margin-bottom-10 visible-sm">
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number bounce" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='9' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -147,7 +169,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number bounce" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='8' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)
@@ -167,7 +189,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="col-1-8">
+								<div class="col-1-9">
 									<div class="easy-pie-chart">
 										<div class="number bounce" data-percent="<?php $query = $this->db->query("select round(100/(sum(qty_order)) * sum(qty_finish),1) as persen from spk_proses_mesin where proses_type='7' and spk_induk='".$this->uri->segment(4)."'");
 											foreach ($query->result() as $row)

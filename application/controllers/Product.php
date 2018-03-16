@@ -140,7 +140,7 @@ class Product extends CI_Controller {
         $data['crumb'] = array('Material'=>' ', 'Material'=>'');
         $userid = $this->ion_auth->user()->row()->id;
         $group_id = $this->User_groups_model->get_group($userid);
-		if ($group_id !='1' || $group_id !='5') { 
+		if ($group_id !='1' && $group_id !='5') { 
 			$template = 'metronic_template';
 			$view = 'notauth';
 			$this->outputview->output_admin($view, $template, $data);
@@ -197,7 +197,7 @@ class Product extends CI_Controller {
         $data['crumb'] = array('Gudang'=>' ', 'Gudang'=>'');
 		$userid = $this->ion_auth->user()->row()->id;
         $group_id = $this->User_groups_model->get_group($userid);
-        if ($group_id !='1' || $group_id !='5') { 
+        if ($group_id !='1' && $group_id !='5') { 
 			$template = 'metronic_template';
 			$view = 'notauth';
 			$this->outputview->output_admin($view, $template, $data);
