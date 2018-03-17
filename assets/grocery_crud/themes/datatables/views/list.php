@@ -18,7 +18,17 @@
 		<tr>
 			<td><?= $i ?></td>
 			<?php foreach($columns as $column){?>
+				<?php if($column->field_name != 'progress'){?>
 				<td><?php echo $row->{$column->field_name} != '' ? $row->{$column->field_name} : '&nbsp;' ; ?></td>
+				<?php } else{?>
+				<td>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo ($row->{'qty_finish'}/$row->{'qty_order'}*100); ?>%">
+                		<?php echo number_format(($row->{'qty_finish'}/$row->{'qty_order'}*100),2,",","."); ?>%
+            			</div>
+            		</div>
+            	</td>
+				<?php } ?>
 			<?php }?>
 
 			<?php if(!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)){?>

@@ -179,7 +179,10 @@ class Purchase extends CI_Controller {
         $crud->callback_after_insert(array($this,'spkprosesmesin_notif'));
 		$crud->unset_print();
 		}
-        
+
+        $crud->columns('proses_type', 'spk_induk', 'qty_order', 'qty_finish', 'created_at', 'status_spk', 'progress');
+        $crud->callback_column('percent',array($this,'percent_column_callback'));
+
         $crud->add_action('Print','fa fa-book','report/cetakspk', '');
 		$output = $crud->render();
 		
@@ -190,6 +193,11 @@ class Purchase extends CI_Controller {
         $view = 'grocery'; $template='metronic_template';
         $this->outputview->output_admin($view, $template, $data, $output);
         
+    }
+
+    function percent_column_callback()
+    {
+      return '';
     }
     
     function spkprosesmesin_notif($post_array,$primary_key){

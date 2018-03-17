@@ -106,4 +106,7 @@ tr.noBorder td{
 .sparkline-chart .title,
 .easy-pie-chart .title {
   font-size: 12px;
-  }
+}
+.progress-bar{
+  color: #000;
+}
