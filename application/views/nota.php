@@ -26,7 +26,7 @@
 						<div class="row" id="ponumber">
 							<div class="form-display-as-box col-xs-2">
 								<label style="width: 90%;">
-									PO Number
+									SPK Number
 								</label><strong>:</strong>
 							</div>
 							<div class="form-input-box col-xs-10" id="ponumber_input_box">

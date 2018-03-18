@@ -42,10 +42,10 @@ class Report extends CI_Controller {
         //$value = $this->crud_model->select('po','*','id='.$id)->result();
         $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id)->result();
         $senddate = new DateTime($value[0]->tanggal_kirim);
-
-        //output
+        $product_id= $this->crud_model->select('po','*', 'id='.$id, null, null, null)->result();
+    
         $output['param'] = 'nprod';
-        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'po.product_id=product.product_id',null,null,'*','po.id='.$id)->result();
+        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id)->result();
         $output['no'] = $value[0]->no_po;
         $output['tgl'] = $this->tanggal_indo($value[0]->tanggal_po);
         $output['currency'] = $value[0]->mata_uang;
@@ -68,10 +68,12 @@ class Report extends CI_Controller {
 
         $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id)->result();
         $senddate = new DateTime($value[0]->tanggal_kirim);
+        $product_id= $this->crud_model->select('po','*', 'id='.$id, null, null, null)->result();
 
         //output
         $output['param'] = 'prod';
-        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'po.product_id=product.product_id',null,null,'*','po.id='.$id)->result();
+        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id)->result();
+        //$output['valuetable'] = $this->crud_model->relation('po','product',null,null,'po.product_id=product.product_id',null,null,'*','po.id='.$id)->result();
         $output['no'] = $value[0]->no_po;
         $output['tgl'] = $this->tanggal_indo($value[0]->tanggal_po);
         $output['currency'] = $value[0]->mata_uang;

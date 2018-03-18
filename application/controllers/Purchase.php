@@ -14,6 +14,7 @@ class Purchase extends CI_Controller {
         $this->load->model('Spkmesin_model');
 		$this->load->library('gc_dependent_select');
         $this->load->model('crud_model');
+		$this->load->model('Product_model');
     }
 	
 	public function purchase_order ()
@@ -27,7 +28,9 @@ class Purchase extends CI_Controller {
 		$crud->field_type('created_by','hidden',$userid);
 		$crud->set_relation('gudang_id', 'gudang', 'gudang_name');
 		$crud->set_relation('customer_id', 'customer', 'customer_name');
-		$crud->set_relation('product_id', 'product', 'product_name');
+		$product = $this->Product_model->getproduct();
+		$crud->field_type('product_id','multiselect',$product);		
+		//$crud->set_relation('product_id', 'product', 'product_name');
 		$crud->display_as('no_po','Nomer Purchase Order');
 		$crud->display_as('tanggal_po','Tanggal Purchase Order');
 		$crud->display_as('gudang_id','Gudang');
@@ -63,10 +66,11 @@ class Purchase extends CI_Controller {
         $crud->set_table('spk_induk');
         //$crud->set_field_upload('cover', 'assets/uploads/covers/movie_category');
         $crud->where('status',1);
-		$crud->unset_columns('created_by','po_id','gudang_asal','gudang_tujuan','description','modified_at');
+		$crud->unset_columns('created_by','po_id','gudang_asal','gudang_tujuan','description','modified_at','status');
         $userid = $this->ion_auth->user()->row()->id;
 		$crud->field_type('created_by','hidden',$userid);
 		$crud->unset_fields('modified_at');
+		$crud->field_type('status','hidden','1');
 		$crud->set_relation('gudang_asal', 'gudang', 'gudang_name');
 		$crud->set_relation('gudang_tujuan', 'gudang', 'gudang_name');
 		$crud->set_relation('po_id', 'po', 'no_po');

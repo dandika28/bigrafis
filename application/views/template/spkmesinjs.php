@@ -19,6 +19,12 @@ $(document).ready(function(){
 				$('#field-proses_ke_mesin').hide();
 				$('#field-jumlah').hide();
 				$('#jumlah_display_as_box').hide();
+
+				var qtyFinish = $('#field-qty_finish').text();
+				var qtyOrder = $('#field-qty_order').text();
+				var width = qtyFinish*100/qtyOrder;
+				$('#progress_input_box .progress-bar').css("width",width+'%');
+				$('#progress_input_box .progress-bar').text(width+'%');
 				
 	$(document).on('change', '#field-proses_type', function(){
 		var proses_type = $("#field-proses_type").val();

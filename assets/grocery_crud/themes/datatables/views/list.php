@@ -23,7 +23,8 @@
 				<?php } else{?>
 				<td>
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo ($row->{'qty_finish'}/$row->{'qty_order'}*100); ?>%">
+						<div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" 
+						style="width:<?php echo ($row->{'qty_finish'}/$row->{'qty_order'}*100); ?>%">
                 		<?php echo number_format(($row->{'qty_finish'}/$row->{'qty_order'}*100),2,",","."); ?>%
             			</div>
             		</div>

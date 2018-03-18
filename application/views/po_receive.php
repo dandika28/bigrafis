@@ -122,11 +122,13 @@
 											<td><?php echo number_format($value->jumlah_unit,0,",",".");?></td>
 											<td><?php echo $value->product_unit;?></td>
 											<td><?php echo number_format($value->product_price,2,",",".");?></td>
-											<td><?php echo $discount=$discount+$value->discount;?></td>
-											<td><?php echo  number_format(((float) $subtotal = $subtotal+$value->jumlah_unit * $value->product_price),2,",",".");?></td>
-											<td><?php  echo $pajak = $pajak+$value->pajak; ?>%</td>
+											<td><?php $discount=$discount+$value->discount; echo $value->discount;?></td>
+											<td><?php echo  number_format(((float) $subtotal1 = $value->jumlah_unit * $value->product_price),2,",",".");?></td>
+											<td><?php $pajak = $value->pajak; echo $value->pajak;?>%</td>
 										</tr>
-										<?php $i = $i+1; } ?>
+										<?php $i = $i+1; 
+												$subtotal = $subtotal + $subtotal1;
+												$biayapajak = $biayapajak + $pajak/100*$subtotal;			} ?>
 									</tbody>
 								</table>
 							</div>
@@ -134,7 +136,6 @@
 						
 						<div class="col-xs-12 text-center" style="height: 150px;">
 							<?php
-								$biayapajak = $biayapajak + $pajak/100*$subtotal;
 								$total = $total + $biayapajak + $deliveryCost + $discount + $subtotal;
 								$saldo = $total - $dibayar;
 							?>	
@@ -265,7 +266,7 @@
 								<hr style="border-top: 1px solid #000" align="center" width="50%">
 							</div>
 							<div class="col-xs-6 text-center">
-								SUCCESS
+								PT Lubana Sukses Abadi
 								<div class="box" style="height: 75px; border: none; box-shadow: none;">
 								</div>
 								<hr style="border-top: 1px solid #000" align="center" width="50%">
