@@ -60,16 +60,16 @@ class Crud_model extends CI_Model {
 
 	function update($table, $data, $where)
 	{
-        $this->db->where($where); 
-        $this->db->update($table, $data);
+		$this->db->where($where); 
+		$this->db->update($table, $data);
 	}
 
 	function updates($data)
 	{
         //$this->db->update($table, $data);
-        extract($data);
-        $this->db->where('spk_material_id', $spk_material_id); 
-        $this->db->update($table_name, array('qty_deliver' => $qty_deliver));
+		extract($data);
+		$this->db->where('spk_material_id', $spk_material_id); 
+		$this->db->update($table_name, array('qty_deliver' => $qty_deliver));
 	}
 
 	function updatebatch($table, $data, $where){
@@ -80,13 +80,13 @@ class Crud_model extends CI_Model {
 	{
 		extract($data);
 		$this->db->where('group_id', $group_id); 
-        $this->db->update($table_name, array('status' => $status));
+		$this->db->update($table_name, array('status' => $status));
 	}
 
 	function delete($table, $where)
 	{
-        $this->db->where($where);
-        $this->db->delete($table);
+		$this->db->where($where);
+		$this->db->delete($table);
 	}
 
 	function get_id()
@@ -115,7 +115,7 @@ class Crud_model extends CI_Model {
 		return $this->db->list_tables();
 	}
 
-	function relation($table1, $table2, $table3, $table4, $param, $param2, $param3, $fields, $where){
+	function relation($table1, $table2, $table3, $table4, $param, $param2, $param3, $fields, $where, $order = null){
 		$this->db->select($fields);
 		$this->db->from($table1);
 		$this->db->join($table2, $param);
@@ -128,8 +128,19 @@ class Crud_model extends CI_Model {
 		if ($where != null) {
 			$this->db->where($where);
 		}
+		if ($order != null) {
+			$this->db->order_by($order);
+		}
 
 		return $this->db->get();
+	}
+
+	function get_enum_values( $table, $field )
+	{
+		$type = $this->db->query( "SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" )->row( 0 )->Type;
+		preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+		$enum = explode("','", $matches[1]);
+		return $enum;
 	}
 
 }

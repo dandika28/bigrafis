@@ -119,7 +119,7 @@
 											<td><?= $i ?></td>
 											<td><?php echo $value->product_kode;?></td>
 											<td><?php echo $value->product_name;?></td>
-											<td><?php echo number_format($value->jumlah_unit,0,",",".");?></td>
+											<td><?php echo number_format($po_product[$i-1]->jumlah_unit,0,",",".");?></td>
 											<td><?php echo $value->product_unit;?></td>
 											<td><?php echo number_format($value->product_price,2,",",".");?></td>
 											<td><?php $discount=$discount+$value->discount; echo $value->discount;?></td>
@@ -390,7 +390,7 @@
 											<td><?= $i ?></td>
 											<td><?php echo $value->product_kode;?></td>
 											<td><?php echo $value->product_name;?></td>
-											<td><?php echo $value->jumlah_unit;?></td>
+											<td><?php echo number_format($po_product[$i-1]->jumlah_unit,0,",",".");?></td>
 											<td><?php echo $value->product_unit;?></td>
 										</tr>
 										<?php $i = $i +1; } ?>

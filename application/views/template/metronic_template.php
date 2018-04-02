@@ -353,7 +353,7 @@
     			</h3>
                 <p class="<?php echo $param1; ?> page-sub-title"><?php echo $subjudul ?></p>
 			<?php } else { ?>
-                <h3 class="page-title ?>">
+                <h3 class="page-title">
                 <?php echo $judul ?>
                 </h3>
             <?php } ?>
@@ -373,7 +373,29 @@
 <!-- GroceryCRUD JS -->
 <?php if (isset($js_files)) { foreach($js_files as $file): ?> 
     <script src="<?php echo $file; ?>"></script>
-<?php endforeach; $this->load->view('template/spkmesinjs'); } else { ?>
+<?php endforeach; $this->load->view('template/spkmesinjs'); } 
+    else if(isset($jsFiles)){?>
+    
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery-1.11.1.min.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/ui/jquery-ui-1.10.3.custom.min.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/themes/datatables/js/jquery.form.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/jquery.form.min.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/themes/datatables/js/flexigrid-add.js"></script>
+ 
+    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.noty.config.js"></script>
+
+<?php } else { ?>
     <script src="<?php echo base_url('assets/js/plugins/jQuery/jQuery-2.1.4.min.js') ?>"></script>             
 <?php } ?>       
 

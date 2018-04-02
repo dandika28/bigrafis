@@ -62,7 +62,8 @@
 				<div class="tDiv2 col-xs-6">
 					<?php if(!$unset_add){?>
 					<!-- Button ADD  -->
-			        	<a href='<?php echo $add_url?>' title='<?php echo $this->l('list_add'); ?> <?php echo $subject?>' class='add-anchor add_button btn btn-primary'>
+			        	<a href='<?php if($subject!='PurchaseOrder'){echo $add_url;}else{echo base_url('Purchase/purchase_order_add');}?>' title='<?php echo $this->l('list_add'); ?> <?php echo $subject?>' class='add-anchor add_button btn btn-primary'>
+			        		<!--a href="<?php echo $add_url?>" class='add-anchor add_button btn btn-primary'-->
 			                <i class="fa fa-plus-circle"></i> 
 							<span class="add"><?php echo $this->l('list_add'); ?> <?php echo $subject?></span>
 			            </a>

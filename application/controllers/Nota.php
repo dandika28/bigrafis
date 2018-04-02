@@ -79,9 +79,9 @@ class Nota extends CI_Controller {
 			$this->crud_model->insert('nota_transfer_material', $dataNotaTrfMaterial);
 		}
 		
-		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk)->result();
+		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk, null)->result();
 
-		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk)->result();
+		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk, null)->result();
 
 		$output['test'] = $value;
 		$output['qty'] = $a;
@@ -99,9 +99,8 @@ class Nota extends CI_Controller {
 
 	public function view($spk_induk)
 	{
-		//$output['test'] = $this->crud_model->relation('spk_material','material','*','material.id = spk_material.kode_material', null)->result();
 
-		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', 'spk_material.spk_induk_id='.$spk_induk)->result();
+		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', 'spk_material.spk_induk_id='.$spk_induk, null)->result();
 
         $data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'View' => '');

@@ -1,0 +1,26 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-03-19 04:22:35 --> Session: The session cookie was not signed.
+ERROR - 2018-03-19 04:22:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:44 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:46 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:22:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:52 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514
+ERROR - 2018-03-19 04:28:53 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Error' does not have a method 'index' C:\xampp\htdocs\bigrafis\system\core\CodeIgniter.php 514

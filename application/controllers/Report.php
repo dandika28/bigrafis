@@ -40,12 +40,13 @@ class Report extends CI_Controller {
         $data['judul'] = 'PURCHASE ORDER RECEIVED';
         
         //$value = $this->crud_model->select('po','*','id='.$id)->result();
-        $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id)->result();
+        $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id, null)->result();
         $senddate = new DateTime($value[0]->tanggal_kirim);
         $product_id= $this->crud_model->select('po','*', 'id='.$id, null, null, null)->result();
     
         $output['param'] = 'nprod';
-        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id)->result();
+        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id, null)->result();
+        $output['po_product'] = $this->crud_model->select('po_product','*','po_id='.$id,null,null,null,null)->result();
         $output['no'] = $value[0]->no_po;
         $output['tgl'] = $this->tanggal_indo($value[0]->tanggal_po);
         $output['currency'] = $value[0]->mata_uang;
@@ -66,18 +67,19 @@ class Report extends CI_Controller {
 
         $data['judul'] = 'PURCHASE ORDER RECEIVED';
 
-        $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id)->result();
+        $value = $this->crud_model->relation('po','gudang','customer',null,'po.gudang_id=gudang.gudang_id','po.customer_id=customer.id',null,'*','po.id='.$id, null)->result();
         $senddate = new DateTime($value[0]->tanggal_kirim);
         $product_id= $this->crud_model->select('po','*', 'id='.$id, null, null, null)->result();
 
         //output
         $output['param'] = 'prod';
-        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id)->result();
-        //$output['valuetable'] = $this->crud_model->relation('po','product',null,null,'po.product_id=product.product_id',null,null,'*','po.id='.$id)->result();
+        $output['valuetable'] = $this->crud_model->relation('po','product',null,null,'product.product_id in('.$product_id[0]->product_id.')',null,null,'*','po.id='.$id, null)->result();
+        
         $output['no'] = $value[0]->no_po;
         $output['tgl'] = $this->tanggal_indo($value[0]->tanggal_po);
         $output['currency'] = $value[0]->mata_uang;
         $output['send_date'] = $senddate->format('d/m/Y');
+        $output['po_product'] = $this->crud_model->select('po_product','*','po_id='.$id,null,null,null,null)->result();
         $output['gudang'] = $value[0]->gudang_name;
         $output['customername'] = $value[0]->customer_name;
         $output['customercontact'] = $value[0]->customer_contact;
@@ -90,7 +92,7 @@ class Report extends CI_Controller {
 
     public function cetakspk($spk_proses_id)
     {
-        $value = $this->crud_model->relation('spk_induk','spk_proses_mesin', 'po', 'product', 'spk_induk.spk_induk_id=spk_proses_mesin.spk_induk','spk_induk.po_id=po.id','po.product_id=product.product_id','*','spk_proses_mesin.spk_proses_id='.$spk_proses_id)->result();
+        $value = $this->crud_model->relation('spk_induk','spk_proses_mesin', 'po', 'product', 'spk_induk.spk_induk_id=spk_proses_mesin.spk_induk','spk_induk.po_id=po.id','po.product_id=product.product_id','*','spk_proses_mesin.spk_proses_id='.$spk_proses_id, null)->result();
 
         $proses = $value[0]->proses_type;
         switch ($proses) {
@@ -148,11 +150,11 @@ class Report extends CI_Controller {
         $data['judul'] = 'PRODUKSI';
         $data['crumb'] = array( 'SPK' => 'purchase/spk_induk', 'Report' => '');
 
-        $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk)->result();
-        $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
-        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.satuan, gudang.gudang_name, material.harga_satuan','spk_induk.spk_induk_id='.$spk_induk)->result();
+        $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.satuan, gudang.gudang_name, material.harga_satuan','spk_induk.spk_induk_id='.$spk_induk, null)->result();
         $valuehasil = $this->crud_model->relation('spk_induk', 'po','product', 'gudang','spk_induk.po_id=po.id', 'po.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, po.jumlah_unit,
-            product.product_unit, product.product_price, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk)->result();
+            product.product_unit, product.product_price, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
 
         //output
         $output['hasilProduksi'] = $valuehasil[0];
