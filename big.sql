@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `gudang` (
   `created_by` varchar(5) DEFAULT '0',
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `gudang_id` (`gudang_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.gudang: ~3 rows (approximately)
 /*!40000 ALTER TABLE `gudang` DISABLE KEYS */;
@@ -1175,7 +1175,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.notification: ~13 rows (approximately)
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
@@ -1192,7 +1192,8 @@ INSERT INTO `notification` (`notification_id`, `notif`, `type`, `group_id`, `sub
 	(10, 'SPK Induk  Proses pond Di assign ke bagian Anda', 'pond', '8', 'SPK Proses pond Baru', '2018-03-10 12:22:16', 'R'),
 	(11, 'SPK Induk  Proses sortir Di assign ke bagian Anda', 'sortir', '8', 'SPK Proses sortir Baru', '2018-03-10 12:22:16', 'R'),
 	(12, 'SPK Induk  Proses gluing Di assign ke bagian Anda', 'gluing', '8', 'SPK Proses gluing Baru', '2018-03-10 12:22:16', 'R'),
-	(13, 'SPK Induk  Proses packing Di assign ke bagian Anda', 'packing', '8', 'SPK Proses packing Baru', '2018-03-10 12:22:16', 'R');
+	(13, 'SPK Induk  Proses packing Di assign ke bagian Anda', 'packing', '8', 'SPK Proses packing Baru', '2018-03-10 12:22:16', 'R'),
+	(14, 'Anda mendapat SPK Baru dari bagian Production', 'SPKINDUK', '5', 'SPK Induk Baru Nomer ', '2018-03-17 13:20:30', 'N');
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 
 -- Dumping structure for table big.operatormesin
@@ -1206,7 +1207,7 @@ CREATE TABLE IF NOT EXISTS `operatormesin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.operatormesin: ~9 rows (approximately)
+-- Dumping data for table big.operatormesin: ~39 rows (approximately)
 /*!40000 ALTER TABLE `operatormesin` DISABLE KEYS */;
 INSERT INTO `operatormesin` (`id`, `operatorname`, `created_by`, `modified_at`, `jobfinish`, `role`) VALUES
 	(1, 'Dika', '1', '2018-03-10 12:17:16', 1000002, 2),
@@ -1272,16 +1273,29 @@ CREATE TABLE IF NOT EXISTS `po` (
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`),
   KEY `no_po` (`no_po`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.po: ~4 rows (approximately)
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
 INSERT INTO `po` (`id`, `no_po`, `customer_id`, `tanggal_po`, `mata_uang`, `tanggal_kirim`, `gudang_id`, `product_id`, `harga_total`, `discount`, `pajak`, `biaya_delivery`, `jumlah_unit`, `po_status`, `created_by`, `modified_at`) VALUES
-	(1, 'PO026/XII/17', 1, '2017-11-01', 'IDR', '2018-01-31', '2', '1', NULL, NULL, NULL, NULL, '3307500', 'WIP', '1', '2018-02-21 08:37:30'),
-	(2, 'PO027/V/2018', 1, '2018-02-22', 'IDR', '2018-02-28', '2', '1', '20000000', '1', '10', '120000', '80000', 'WIP', '1', '2018-02-21 08:37:33'),
+	(1, 'PO026/XII/17', 1, '2017-11-01', 'IDR', '2018-01-31', '2', '1', NULL, NULL, NULL, NULL, '3307500', '', '1', '2018-02-21 08:37:30'),
+	(2, 'PO027/V/2018', 1, '2018-02-22', 'IDR', '2018-02-28', '2', '1,2', '20000000', '1', '10', '120000', '80000', '', '1', '2018-03-17 16:29:24'),
 	(3, 'PO024/XII/17', 1, '2017-07-05', 'IDR', '2018-05-31', '2', '1', '34000000000', '10', '10', '0', '340000000', 'New', '1', '2018-02-24 15:31:41'),
 	(4, 'PO/031/II/2018', 1, '2018-02-14', 'IDR', '2018-02-28', '2', '1', '10000000', '1', '1', '100', '30000', 'New', '1', '2018-02-24 15:35:53');
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
+
+-- Dumping structure for table big.po_product
+CREATE TABLE IF NOT EXISTS `po_product` (
+  `po_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `po_id` int(11) NOT NULL,
+  `product_id` varchar(50) NOT NULL,
+  `jumlah_unit` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`po_product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table big.po_product: ~0 rows (approximately)
+/*!40000 ALTER TABLE `po_product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `po_product` ENABLE KEYS */;
 
 -- Dumping structure for table big.product
 CREATE TABLE IF NOT EXISTS `product` (
@@ -1296,12 +1310,13 @@ CREATE TABLE IF NOT EXISTS `product` (
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `product_id` (`product_id`),
   KEY `product_kode` (`product_kode`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table big.product: ~0 rows (approximately)
+-- Dumping data for table big.product: ~2 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_id`, `product_kode`, `product_name`, `product_category`, `product_desc`, `product_price`, `product_unit`, `created_by`, `modified_at`) VALUES
-	(1, 1000070, 'BLANK H-MIND KHUSUS KAWASAN BATAM', '2', '<p>BUNGKUS ROKOK h-MIND</p>\r\n', '174.50', 'pcs', '1', '2018-01-20 05:16:54');
+	(1, 1000070, 'BLANK H-MIND KHUSUS KAWASAN BATAM', '2', '<p>BUNGKUS ROKOK h-MIND</p>\r\n', '174.50', 'pcs', '1', '2018-01-20 05:16:54'),
+	(2, 123321, 'TEST', '3', '<p>TEST</p>', '150', 'pcs', '1', '2018-03-17 16:29:11');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table big.product_category
@@ -1391,7 +1406,7 @@ CREATE TABLE IF NOT EXISTS `spk_induk` (
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`spk_induk_id`),
   KEY `po_id` (`po_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.spk_induk: ~4 rows (approximately)
 /*!40000 ALTER TABLE `spk_induk` DISABLE KEYS */;
@@ -1399,7 +1414,8 @@ INSERT INTO `spk_induk` (`spk_induk_id`, `po_id`, `spk_date`, `description`, `gu
 	(246, 3, '2018-02-21', 'test', '3', '2', 'New', 1, '1', '2018-03-16 17:23:50'),
 	(247, 1, '2018-01-30', 'pro ares mulut tenggorokan qty100000', '3', '1', 'WIP', 1, '1', '2018-03-16 17:23:52'),
 	(248, 2, '2018-02-22', 'mohon di kejar ', '3', '2', '', 0, '1', '2018-03-16 17:39:53'),
-	(249, 1, '2018-03-10', 'test', '3', '1', 'New', 1, '1', '2018-03-16 17:23:57');
+	(249, 1, '2018-03-10', 'test', '3', '1', 'New', 1, '1', '2018-03-16 17:23:57'),
+	(250, 2, '2018-03-16', 'test', '3', '2', 'New', 0, '1', '2018-03-17 13:20:30');
 /*!40000 ALTER TABLE `spk_induk` ENABLE KEYS */;
 
 -- Dumping structure for table big.spk_material
@@ -1505,7 +1521,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table big.users: ~4 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-	(1, '127.0.0.1', 'admin', '$2y$08$v.Lr4yujxQxzZNdmCpgJWu7WLR5hzFDxkh0mRRmSuBartWDE93ySO', '', 'admin@admin.com', NULL, 'asGsHoh0iWTpOuVLM.EMUO900526bdd0557906ac', 1421981304, NULL, 1268889823, 1521208820, 1, 'Admin', 'System', 'ADMIN', '1234567890'),
+	(1, '127.0.0.1', 'admin', '$2y$08$v.Lr4yujxQxzZNdmCpgJWu7WLR5hzFDxkh0mRRmSuBartWDE93ySO', '', 'admin@admin.com', NULL, 'asGsHoh0iWTpOuVLM.EMUO900526bdd0557906ac', 1421981304, NULL, 1268889823, 1522631868, 1, 'Admin', 'System', 'ADMIN', '1234567890'),
 	(2, '::1', 'user', '$2y$08$EvJBduv65f1wQQ39WNs3R.tuWvZAG5NSCE9Q29eLniyD/6OlownAG', NULL, 'indr4@ymail.com', NULL, NULL, NULL, NULL, 1501733042, 1518238464, 1, 'User', 'System', NULL, '081282222827'),
 	(3, '::1', 'operatormesin', '$2y$08$TMjAbBw.FPHxOUaeJo3VueM96MLxvbB/9AMBDzYUFjl6ewPz63xdi', NULL, 'operatormesin@bigrafis.com', NULL, NULL, NULL, NULL, 1519044464, 1520725087, 1, 'operator', 'mesin', NULL, '666666666'),
 	(4, '::1', 'gudang', '$2y$08$DWj0X.FrPCZoWdZ4UTYhY.c6V4z7QU2kUh6I3X/ucV.bJ5D3Ak88W', NULL, 'gu@dang.com', NULL, NULL, NULL, NULL, 1519189506, 1520654859, 1, 'gu', 'dang', NULL, '111111111');
