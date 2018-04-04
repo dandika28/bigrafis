@@ -291,6 +291,9 @@ public function spk_induk() {
     $crud->unset_print();
     $crud->unset_delete();
     $crud->callback_after_insert(array($this,'spkinduk_notif'));
+
+    $crud->callback_field('description',array($this,'callback_description_spk_induk' ));
+
     $output = $crud->render();
 
     $data['judul'] = 'SPK Produksi';
@@ -520,6 +523,21 @@ public function mesin()
                                 //}
                         //}
 }
+public function descriptionPO()
+{
+  $q = $this->input->post('po-id');
+  $description = $this->crud_model->relation('po_product', 'product', null, null,'po_product.product_id=product.product_id', null, null, '*', 'po_product.po_id='.$q,null)->result();
+
+  $data= "";
+  $data.= "<select id='field-description' name='description' data-placeholder='Select Description' style='display: ;'>";
+
+  foreach ($description as $key => $value) {
+    $data.="<option value='$value->product_name' >$value->product_name</option>\n";
+  }
+  $data.="</select>";
+  echo $data;
+}
+
 function updatenotif()
 {
     $id = $this->input->post('groupId');
@@ -544,6 +562,12 @@ function callbackmesin($post_array,$private_key)
                 //$bookdate = date('Y-m-d H:i:s');
     return "<select id='field-mesin_id' name='mesin_id' class='chosen-select chzn-done' data-placeholder='Select Mesin' style='display: ;'></select>";
 }
+
+function callback_description_spk_induk($post_array,$private_key)
+{
+    return "<select id='field-description' name='description' class='chosen-select chzn-done' data-placeholder='Select Description' style='display: ;'></select>"; 
+}
+
 function operatormesinupdate($post_array,$primary_key){
 
     $jobcurrent = $this->Operatormesin_model->getjobnumber($post_array['operator_mesin']);

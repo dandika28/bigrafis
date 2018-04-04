@@ -25,6 +25,17 @@ $(document).ready(function(){
 				var width = qtyFinish*100/qtyOrder;
 				$('#progress_input_box .progress-bar').css("width",width+'%');
 				$('#progress_input_box .progress-bar').text(width+'%');
+	$(document).on('change', '#field-po_id', function(){
+		var desc_po = $("#field-po_id").val();
+		$.ajax({
+               type : "POST",
+               url  : "<?php echo base_url(); ?>index.php/Purchase/descriptionPO",
+               data : "po-id=" + desc_po,
+               success: function(data){
+                   $("#field-description").html(data);
+               }
+            });
+	})
 				
 	$(document).on('change', '#field-proses_type', function(){
 		var proses_type = $("#field-proses_type").val();

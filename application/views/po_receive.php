@@ -123,12 +123,13 @@
 											<td><?php echo $value->product_unit;?></td>
 											<td><?php echo number_format($value->product_price,2,",",".");?></td>
 											<td><?php $discount=$discount+$value->discount; echo $value->discount;?></td>
-											<td><?php echo  number_format(((float) $subtotal1 = $value->jumlah_unit * $value->product_price),2,",",".");?></td>
-											<td><?php $pajak = $value->pajak; echo $value->pajak;?>%</td>
+											<td><?php echo number_format(((float) $subtotal1 = $po_product[$i-1]->jumlah_unit * $value->product_price),2,",",".");?>
+											</td>
+											<td><?php $pajak = $value->pajak/100*$subtotal1; echo $value->pajak;?>%</td>
 										</tr>
 										<?php $i = $i+1; 
 												$subtotal = $subtotal + $subtotal1;
-												$biayapajak = $biayapajak + $pajak/100*$subtotal;			} ?>
+												$biayapajak = $biayapajak + $pajak;			} ?>
 									</tbody>
 								</table>
 							</div>
@@ -136,7 +137,7 @@
 						
 						<div class="col-xs-12 text-center" style="height: 150px;">
 							<?php
-								$total = $total + $biayapajak + $deliveryCost + $discount + $subtotal;
+								$total = $total + $biayapajak + $deliveryCost - $discount + $subtotal;
 								$saldo = $total - $dibayar;
 							?>	
 						</div>

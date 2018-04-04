@@ -10,6 +10,7 @@ class Report extends CI_Controller {
 		$this->load->model('crud_model');
         $this->load->model('Notification_model');
         $this->load->model('User_groups_model');
+		$this->load->model('Spkinduk_model');
     }
 	
 	public function mesinreport ()
@@ -219,4 +220,24 @@ class Report extends CI_Controller {
         }     
         return $temp;
     }
+	
+	public function spkreport ()
+	{
+		$data['judul'] = 'SPK INDUK REPORT';
+		$template = 'metronic_template';
+        $view = 'spkindukreport';
+        $this->outputview->output_admin($view, $template, $data);
+	}
+	
+	public function spkmesinreport ()
+	{
+		$status = $this->input->post('status_spk');
+		$data['valuespkinduk'] = $this->Spkinduk_model->getspk_by_status($status);
+		$data['valuespkmesin'] = $this->Spkinduk_model->getspkmesin_by_status($status);
+		
+        
+        $data['judul'] = 'REPORT SPK INDUK';
+        $view = 'spkindukreport'; $template='metronic_template';
+        $this->outputview->output_admin($view, $template, $data);
+	}
 }

@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `gudang` (
   `created_by` varchar(5) DEFAULT '0',
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `gudang_id` (`gudang_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.gudang: ~3 rows (approximately)
 /*!40000 ALTER TABLE `gudang` DISABLE KEYS */;
@@ -1273,7 +1273,7 @@ CREATE TABLE IF NOT EXISTS `po` (
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`),
   KEY `no_po` (`no_po`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.po: ~4 rows (approximately)
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
@@ -1291,7 +1291,7 @@ CREATE TABLE IF NOT EXISTS `po_product` (
   `product_id` varchar(50) NOT NULL,
   `jumlah_unit` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`po_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table big.po_product: ~0 rows (approximately)
 /*!40000 ALTER TABLE `po_product` DISABLE KEYS */;
