@@ -133,6 +133,9 @@ class Product extends CI_Controller {
 		$crud->set_relation('gudang_id', 'gudang', 'gudang_name');
 		$crud->set_relation('category_id', 'material_category', 'material_category_name');
         $crud->unset_fields('modified_at');        
+
+	$crud->callback_before_insert(array($this,'material_name_with_code'));
+
         $crud->unset_print();
         $output = $crud->render();
         
@@ -167,7 +170,7 @@ class Product extends CI_Controller {
         $data['crumb'] = array('Material'=>' ', 'Material Category'=>'');
 		$userid = $this->ion_auth->user()->row()->id;
         $group_id = $this->User_groups_model->get_group($userid);
-        if ($group_id !='1' || $group_id !='5') { 
+        if ($group_id !='1' && $group_id !='5') { 
 			$template = 'metronic_template';
 			$view = 'notauth';
 			$this->outputview->output_admin($view, $template, $data);
@@ -236,6 +239,13 @@ class Product extends CI_Controller {
         $this->outputview->output_admin($view, $template, $data, $output);
         }
         
+    }
+
+function material_name_with_code($post_array,$primary_key){
+        $material_name = $post_array['material_name'];
+        $kode_material = $post_array['kode']."_".$post_array['material_name'];
+        $post_array['material_name'] = $kode_material;
+        return $post_array;
     }
 
 }

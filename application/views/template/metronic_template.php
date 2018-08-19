@@ -156,7 +156,6 @@
                                     <!--span class="time"> <?php //echo $valuee['date'];?> </span-->
                                     </a>                                    
                                 </li>
-                                    <?php //endforeach;?>
                                     <?php endforeach;?>
                             </ul>                       
                         </li>
@@ -375,25 +374,24 @@
     <script src="<?php echo $file; ?>"></script>
 <?php endforeach; $this->load->view('template/spkmesinjs'); } 
     else if(isset($jsFiles)){?>
-    
+
+<script src="<?php echo base_url('assets/grocery_crud/js/jquery-1.11.1.min.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/ui/jquery-ui-1.10.3.custom.min.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/ui/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/themes/datatables/js/jquery.form.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/themes/datatables/js/jquery.form.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/jquery.form.min.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/jquery.form.min.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/themes/datatables/js/flexigrid-add.js') ?> "></script>
  
-    <script src="http://localhost/bigrafis/assets/grocery_crud/themes/datatables/js/flexigrid-add.js"></script>
- 
-    <script src="http://localhost/bigrafis/assets/grocery_crud/js/jquery_plugins/config/jquery.noty.config.js"></script>
+    <script src="<?php echo base_url('assets/grocery_crud/js/jquery_plugins/config/jquery.noty.config.js') ?> "></script>
 
 <?php } else { ?>
     <script src="<?php echo base_url('assets/js/plugins/jQuery/jQuery-2.1.4.min.js') ?>"></script>             
@@ -471,32 +469,6 @@ Demo.init(); // init demo features
    Index.initChat();
    Index.initMiniCharts();
    Tasks.initDashboardWidget();
-
-/*
-    var result = $(".bDiv input").filter(function () {
-    return $.trim($(this).val()).length == 0
-      }).length == 0;
-
-    console.log("result" + result);
-
-   $('.sendButton').prop('disabled',true);
-    var inputs=jQuery.grep(inputs, function(input){
-        return input.length>0;
-    });
-    if(inputs.length>0) {
-        //return true;
-    
-    //return false;
-        //$("input[id='qtydeliver']").keyup(function(){
-            //if($(this).val().length !=0){
-                console.log('false')
-                $('.sendButton').prop("disabled", false);            
-            }
-            else{
-                console.log('true')
-                $('.sendButton').prop("disabled",true);
-            }
-        //})*/
 });
 </script>
 
@@ -506,7 +478,7 @@ Demo.init(); // init demo features
        // $('.dataTables_wrapper').addClass('table-scrollable');
       var table = $('#example').DataTable({
         "columnDefs": [
-          { className: "dt-right", "targets": [2,4,6,7] }
+          { className: "dt-right", "targets": [2,3,6,7] }
         ],
         "bPaginate": false,
         "bLengthChange": false,
@@ -514,9 +486,25 @@ Demo.init(); // init demo features
         "bInfo": false,
         "bAutoWidth": false,
       });
+
+      
     });
 </script>
 <?php } ?>
+s
+<script>
+    $(document).ready( function () {
+        var total = parseInt($(".totalPenyusunProdukMaterial").text().replace(/\./g,''));
+        var data = $(".dataMaterial").each(function(){
+            var valueInt = $(this).find(".total").text().replace(/\./g,'');
+            var value = parseInt(valueInt);
+            if(!isNaN(value) && value.length != 0) {
+                var percent = value / total * 100;
+                $(this).find(".percentage").text(percent.toFixed(2)+'%');
+            }
+        });
+    });
+</script>
 
 <script>  
     $('#header_notification_bar').hover(function(){

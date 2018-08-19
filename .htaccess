@@ -6,7 +6,7 @@ php_value max_input_time 0
 <IfModule mod_rewrite.c>
 
 RewriteEngine on
-RewriteBase /bigrafis/
+RewriteBase /bigrafis
 RewriteCond $1 !^(index\.php|resources|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

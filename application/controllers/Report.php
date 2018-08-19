@@ -153,11 +153,13 @@ class Report extends CI_Controller {
 
         $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk, null)->result();
         $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
-        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.satuan, gudang.gudang_name, material.harga_satuan','spk_induk.spk_induk_id='.$spk_induk, null)->result();
-        $valuehasil = $this->crud_model->relation('spk_induk', 'po','product', 'gudang','spk_induk.po_id=po.id', 'po.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, po.jumlah_unit,
-            product.product_unit, product.product_price, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.harga_material_satuan, spk_material.jumlah_material, spk_material.satuan, gudang.gudang_name, material.harga_satuan','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+		$valuehasil = $this->crud_model->relation('spk_induk', 'product','po_product', 'gudang','spk_induk.product_code=product.product_kode', 
+			'po_product.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, spk_induk.qty_order,
+            product.product_unit, po_product.harga_satuan, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $qtydeliver = $this->crud_model->select('spk_proses_mesin','*','spk_induk='.$spk_induk.' and proses_type=10',null,null,null)->result();
 
-        //output
+        $output['qtydeliver'] = $qtydeliver[0];
         $output['hasilProduksi'] = $valuehasil[0];
         $output['spkdata'] = $valuetable;
         $output['nomor'] = $value[0]->spk_induk_id;
@@ -169,6 +171,34 @@ class Report extends CI_Controller {
 
         $template = 'metronic_template';
         $view = 'report';
+        $this->outputview->output_admin($view, $template, $data, $output);
+    }
+
+    public function report_spk_produksi($spk_induk)
+    {
+        $data['judul'] = 'PRODUKSI';
+        $data['crumb'] = array( 'SPK' => 'purchase/spk_induk', 'Report' => '');
+
+        $value = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_asal=gudang.gudang_id',null,null,'*','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $gudangtujuan = $this->crud_model->relation('spk_induk','gudang',null,null,'spk_induk.gudang_tujuan=gudang.gudang_id',null,null,'gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $valuetable = $this->crud_model->relation('spk_induk','spk_material','material','gudang','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','spk_material.gudang_id=gudang.gudang_id','material.material_name, spk_material.qty_deliver, spk_material.harga_material_satuan, spk_material.jumlah_material, spk_material.satuan, gudang.gudang_name, material.harga_satuan, material.kode','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $valuehasil = $this->crud_model->relation('spk_induk', 'product','po_product', 'gudang','spk_induk.product_code=product.product_kode', 
+            'po_product.product_id=product.product_id', 'spk_induk.gudang_tujuan=gudang.gudang_id','product.product_kode, product.product_name, spk_induk.qty_order,
+            product.product_unit, po_product.harga_satuan, gudang.gudang_name','spk_induk.spk_induk_id='.$spk_induk, null)->result();
+        $qtydeliver = $this->crud_model->select('spk_proses_mesin','*','spk_induk='.$spk_induk.' and proses_type=10',null,null,null)->result();
+
+        $output['qtydeliver'] = $qtydeliver[0];
+        $output['hasilProduksi'] = $valuehasil[0];
+        $output['spkdata'] = $valuetable;
+        $output['nomor'] = $value[0]->spk_induk_id;
+        $output['tgl'] = $this->tanggal_indo($value[0]->spk_date);
+        $output['desc'] = $value[0]->description;
+        $output['gdasal'] = $value[0]->gudang_name;
+        $output['gdtujuan'] = $gudangtujuan[0]->gudang_name;
+        $output['param'] = 'nonprod';
+
+        $template = 'metronic_template';
+        $view = 'spk_produksi';
         $this->outputview->output_admin($view, $template, $data, $output);
     }
 
@@ -224,6 +254,7 @@ class Report extends CI_Controller {
 	public function spkreport ()
 	{
 		$data['judul'] = 'SPK INDUK REPORT';
+		$this->session->set_userdata('status_spk', null);
 		$template = 'metronic_template';
         $view = 'spkindukreport';
         $this->outputview->output_admin($view, $template, $data);
@@ -232,9 +263,61 @@ class Report extends CI_Controller {
 	public function spkmesinreport ()
 	{
 		$status = $this->input->post('status_spk');
+		if($status!=null){
+			$this->session->set_userdata('status_spk', $status);
+		}else{
+			if($this->session->userdata('status_spk') != null){
+				$status = $this->session->userdata('status_spk');
+			}
+		}
 		$data['valuespkinduk'] = $this->Spkinduk_model->getspk_by_status($status);
-		$data['valuespkmesin'] = $this->Spkinduk_model->getspkmesin_by_status($status);
+		//$data['valuespkmesin'] = $this->Spkinduk_model->getspkmesin_by_status($status);
 		
+		$jumlah_data = $this->Spkinduk_model->jumlah_data_getspkmesin_by_status($status);
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'index.php/report/spkmesinreport/';
+		$config['total_rows'] = $jumlah_data;
+		$config['per_page'] = 5;
+		
+//		$config['num_links'] = 2;
+			
+		$config['use_page_numbers'] = TRUE;
+//		$config['reuse_query_string'] = TRUE;
+		
+		$config['full_tag_open'] = '<div class="dataTables_paginate paging_simple_numbers" id="flex1_paginate"><ul class="pagination">';
+		$config['full_tag_close'] = '</ul></div>';
+		
+		$config['first_link'] = 'First Page';
+		$config['first_tag_open'] = '<li class="paginate_button previous" id="flex1_previous">';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_link'] = 'Last Page';
+		$config['last_tag_open'] = '<li class="paginate_button next" id="flex1_next">';
+		$config['last_tag_close'] = '</li>';
+		
+		error_log("jumlah data: ", $jumlah_data);
+		if($jumlah_data > 5){
+			$config['next_link'] = 'Next Page';
+			$config['next_tag_open'] = '<li class="paginate_button next" id="flex1_next">';
+			$config['next_tag_close'] = '</li>';
+		}else{
+			$config['next_link'] = 'Next Page';
+			$config['next_tag_open'] = '<li class="paginate_button next" id="flex1_next" disable="true">';
+			$config['next_tag_close'] = '</li>';
+		}
+		$config['prev_link'] = 'Prev Page';
+		$config['prev_tag_open'] = '<li class="paginate_button previous" id="flex1_previous">';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="paginate_button active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li class="paginate_button ">';
+		$config['num_tag_close'] = '</li>';
+		
+		$from = $this->uri->segment(3);
+		$this->pagination->initialize($config);
+		$data['valuespkmesin'] = $this->Spkinduk_model->getspkmesin_by_status_offset($status,$config['per_page'],$from);
         
         $data['judul'] = 'REPORT SPK INDUK';
         $view = 'spkindukreport'; $template='metronic_template';

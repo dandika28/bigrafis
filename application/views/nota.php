@@ -1,22 +1,25 @@
-<?php if ($this->uri->segment(2)=='export') { 
-	//if ($success=='1'){
+<?php
+if ($this->uri->segment ( 2 ) == 'export') {
+	// if ($success=='1'){
 	?>
 <div class="row">
 	<div class="col-xs-12">
 		<div>
 			<div class="flexigrid crud-form box" style="width: 100%;">
 				<div class="box-header with-border">
-					<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>Permintaan Barang (Internal)</h3>
-					<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right" onclick="javascript:window.print();">
-									Print <i class="fa fa-print"></i></a>
+					<h3 class="box-title">
+						<i class="fa fa-pencil fa-fw"></i>Permintaan Barang (Internal)
+					</h3>
+					<a class="btn btn-xs blue hidden-print margin-bottom-5 text-right"
+						onclick="javascript:window.print();"> Print <i class="fa fa-print"></i></a>
 				</div>
 				<div class="box-body">
-					<form action="#" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
+					<form action="#" method="post" class="form-horizontal"
+						autocomplete="off" enctype="multipart/form-data"
+						accept-charset="utf-8">
 						<div class="row" id="projectname">
 							<div class="form-display-as-box col-xs-2">
-								<label style="width: 90%;">
-									Project Name
-								</label><strong>:</strong>
+								<label style="width: 90%;"> Project Name </label><strong>:</strong>
 							</div>
 							<div class="form-input-box col-xs-10" id="projectname_input_box">
 								<div class="readonly_label"><?php echo $headervalue[0]->product_name;?></div>
@@ -25,9 +28,7 @@
 						<br>
 						<div class="row" id="ponumber">
 							<div class="form-display-as-box col-xs-2">
-								<label style="width: 90%;">
-									SPK Number
-								</label><strong>:</strong>
+								<label style="width: 90%;"> SPK Number </label><strong>:</strong>
 							</div>
 							<div class="form-input-box col-xs-10" id="ponumber_input_box">
 								<div class="readonly_label"><?php echo $headervalue[0]->spk_induk_id;?></div>
@@ -36,9 +37,7 @@
 						<br>
 						<div class="row" id="intrnumber">
 							<div class="form-display-as-box col-xs-2">
-								<label style="width: 90%;">
-									INTR Number
-								</label><strong>:</strong>
+								<label style="width: 90%;"> INTR Number </label><strong>:</strong>
 							</div>
 							<div class="form-input-box col-xs-10" id="intrnumber_input_box">
 								<div class="readonly_label"><?php echo $intrNumber;?></div>
@@ -59,7 +58,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php $i = 1; foreach ($test as $key => $value) {?>
+										<?php
+											$i = 1;
+												foreach ( $test as $key => $value ) {
+													if ($qty [$i - 1] > 0) {
+														?>
 										<tr>
 											<td><?= $i ?></td>
 											<td><?php echo date("d/m/Y");?></td>
@@ -70,7 +73,7 @@
 											<td></td>
 											<td></td>
 										</tr>
-										<?php $i = $i+1; } ?>
+										<?php } $i = $i+1; } ?>
 									</tbody>
 								</table>
 							</div>
@@ -100,7 +103,7 @@
 										</tr>
 									</tbody>
 								</table>
-							</div>							
+							</div>
 						</div>
 					</form>
 				</div>
@@ -109,18 +112,21 @@
 	</div>
 </div>
 
-<?php 
-
-} else if ($this->uri->segment(2)=='view') { ?>
+<?php
+} else if ($this->uri->segment ( 2 ) == 'view') {
+	?>
 <div class="row">
 	<div class="col-md-12">
 		<div>
 			<div class="flexigrid crud-form box" style="width: 100%;">
 				<div class="box-header with-border">
-					<h3 class="box-title"><i class="fa fa-pencil fa-fw"></i>SPK ID : <?php echo $spk; ?></h3>					
+					<h3 class="box-title">
+						<i class="fa fa-pencil fa-fw"></i>SPK ID : <?php echo $spk; ?></h3>
 				</div>
 				<div class="box-body">
-					<form action="<?php echo site_url($exporturl) ?>" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data" accept-charset="utf-8">
+					<form action="<?php echo site_url($exporturl) ?>" method="post"
+						class="form-horizontal" autocomplete="off"
+						enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="bDiv">
 							<div class="table-scrollable">
 								<table class="table table-bordered table-hover dataTable ">
@@ -128,29 +134,42 @@
 										<tr class="hDiv">
 											<th>No.</th>
 											<th>MATERIAL</th>
-											<th style="width: 150px;">QTY</th>
+											<th style="width: 150px;">QTY REQUEST</th>
+											<th style="width: 150px;">QTY DELIVERED</th>
 											<th style="width: 150px;">QTY DELIVER</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php $i = 1; foreach ($test as $key => $value) {?>
 										<tr>
-											<td><?= $i ?><input type="" name="spk_material_id[]" hidden value="<?php echo $value->spk_material_id;?>"></td>
+											<td><?= $i ?><input type="" name="spk_material_id[]" hidden
+												value="<?php echo $value->spk_material_id;?>"></td>
 											<td><?php echo $value->material_name;?></td>
 											<td><?php echo $value->jumlah_material;?></td>
-											<td><input id="qtydeliver" class="form-control" name="qty_deliver[]" type="text" value maxlength="50" required>
-												<input hidden id="lastqty" name="" value="<?php echo ($value->qty_deliver != null)?$value->qty_deliver:0;?>"></td>
-
+											<td><?php echo $value->qty_deliver;?></td>
+											<?php if ($value->qty_deliver < $value->jumlah_material){?>
+											<td><input type="number" id="qtydeliver" class="form-control"
+												name="qty_deliver[]" type="text" value maxlength="50"
+												min="0"
+												max="<?php echo $value->jumlah_material - $value->qty_deliver;?>"
+												required> <input hidden id="lastqty" name=""
+												value="<?php echo ($value->qty_deliver != null)?$value->qty_deliver:0;?>">
+											</td>
+												<?php } else { ?>
+											<td><input type="number" id="qtydeliver" class="form-control"
+												name="" type="text" value="0" disabled> <input hidden
+												id="lastqty" name="qty_deliver[]" value="0"></td>
+												<?php } ?>
 										</tr>
 										<?php $i = $i+1; } ?>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<!--a href="<?php echo site_url($exporturl) ?>" title="Add Users" class="add-anchor add_button btn btn-primary">
-			                <i class="fa fa-file-excel-o"></i-->
-			                <button id="form-button-save" type="submit" class="btn btn-primary sendButton">Save & Print</button> 
-			            </a>
+						<?php if($statusSpk[0]->status != 2) { ?>
+			                <button id="form-button-save" type="submit"
+							class="btn btn-primary sendButton">Save & Print</button> 
+			            <?php }?>
 					</form>
 				</div>
 			</div>

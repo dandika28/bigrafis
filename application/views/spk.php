@@ -162,13 +162,13 @@
 									DIBUAT OLEH,
 									<div class="box" style="height: 75px; border: none; box-shadow: none;">
 									</div>
-									(Miss. Saridah)
+									<hr>
 								</div>
 								<div class="form-display-as-box col-xs-5 text-center">
 									MENGETAHUI,
 									<div class="box" style="height: 75px; border: none; box-shadow: none;">
 									</div>
-									(Miss. Saridah / Herlambang)
+									<hr>
 								</div>
 							</div>
 						</div>

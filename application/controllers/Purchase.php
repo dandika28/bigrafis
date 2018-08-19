@@ -19,11 +19,13 @@ class Purchase extends CI_Controller {
 
   public function purchase_order ()
   {
+	  $userid = $this->ion_auth->user()->row()->id;
+	  $group_id = $this->User_groups_model->get_group($userid);
       $crud = new Grocery_CRUD();
       $crud->set_subject('PurchaseOrder');
       $crud->set_table('po');
       $crud->unset_fields('modified_at');
-      $crud->unset_columns(array('mata_uang','created_by','modified_at','gudang_id','product_id','pajak','biaya_delivery','jumlah_unit'));
+      $crud->unset_columns(array('mata_uang','created_by','modified_at','gudang_id','product_id','pajak','biaya_delivery','jumlah_unit', 'harga_satuan'));
       $userid = $this->ion_auth->user()->row()->id;
       $crud->field_type('created_by','hidden',$userid);
       $crud->set_relation('gudang_id', 'gudang', 'gudang_name');
@@ -43,11 +45,21 @@ class Purchase extends CI_Controller {
       $crud->unset_read();
       $crud->unset_edit(); 
       $crud->unset_delete(); 
+	  if ($group_id == '3'){
+		$crud->add_action('Receive','fa fa-clipboard','report/po_receive_prod','');
+	 } else if ($group_id == '4') {
+      $crud->add_action('Report','fa fa-book','report/po_receive','');
+      $crud->add_action('Receive','fa fa-clipboard','report/po_receive_prod','');
+      $crud->add_action('Detail', 'fa fa-list', 'purchase/purchase_order_detail', '');
+      $crud->add_action('Edit', 'fa fa-pencil', 'purchase/purchase_order_edit', '');
+      //$crud->add_action('Delete', 'fa fa-trash-o', 'purchase/purchase_order_delete', '');
+	  }else if ($group_id == '1'){
       $crud->add_action('Report','fa fa-book','report/po_receive','');
       $crud->add_action('Receive','fa fa-clipboard','report/po_receive_prod','');
       $crud->add_action('Detail', 'fa fa-list', 'purchase/purchase_order_detail', '');
       $crud->add_action('Edit', 'fa fa-pencil', 'purchase/purchase_order_edit', '');
       $crud->add_action('Delete', 'fa fa-trash-o', 'purchase/purchase_order_delete', '');
+    }
       $crud->callback_after_insert(array($this,'po_notif'));
       $crud->callback_after_insert(array($this, 'po_product'));
 
@@ -80,18 +92,19 @@ class Purchase extends CI_Controller {
     $po_status = $this->input->post('po_status');
     $product = $this->input->post('product');
     $jumlah_unit = $this->input->post('jumlah_unit');
+    $harga_satuan = $this->input->post('harga_satuan');
     $created_by = $this->input->post('created_by');
 
     $data = array('no_po' => $nomor_po , 'customer_id' => $customer_id, 'tanggal_po' => $tgl_po, 'mata_uang' => $mata_uang,
                   'tanggal_kirim' => $tgl_kirim, 'gudang_id' => $gudang_id, 'product_id' => implode(",", $product), 'harga_total' => $harga_total,
-                  'discount' => $discount, 'pajak' => $pajak, 'biaya_delivery' => $biaya_delivery, 'po_status' => $po_status, 'jumlah_unit' => implode(",", $jumlah_unit), 'created_by' => $created_by);
+                  'discount' => $discount, 'pajak' => $pajak, 'biaya_delivery' => $biaya_delivery, 'po_status' => $po_status, 'jumlah_unit' => implode(",", $jumlah_unit), 'harga_satuan' => implode(",", $harga_satuan), 'created_by' => $created_by);
 
     $this->crud_model->insert('po', $data);
 
     $po_id = $this->crud_model->selectdesc('po','id',null,null,'id',null)->result();
   
     for($i=0;$i<count($product);$i++){
-      $data_po_product = array('po_id' => $po_id[0]->id, 'product_id' => $product[$i], 'jumlah_unit' => $jumlah_unit[$i]);
+      $data_po_product = array('po_id' => $po_id[0]->id, 'product_id' => $product[$i], 'jumlah_unit' => $jumlah_unit[$i], 'harga_satuan' => $harga_satuan[$i]);
       $this->crud_model->insert('po_product', $data_po_product);
     }
     
@@ -275,24 +288,38 @@ public function spk_induk() {
     $crud->set_subject('SPK Produksi');
     $crud->set_table('spk_induk');
         //$crud->set_field_upload('cover', 'assets/uploads/covers/movie_category');
-    $crud->where('status',1);
-    $crud->unset_columns('created_by','po_id','gudang_asal','gudang_tujuan','description','modified_at','status');
+   $crud->where('(status!=0)',null, false);
+    $crud->unset_columns('created_by','gudang_asal','gudang_tujuan','description','modified_at','status');
     $userid = $this->ion_auth->user()->row()->id;
     $crud->field_type('created_by','hidden',$userid);
-    $crud->unset_fields('modified_at');
+    
     $crud->field_type('status','hidden','1');
     $crud->set_relation('gudang_asal', 'gudang', 'gudang_name');
     $crud->set_relation('gudang_tujuan', 'gudang', 'gudang_name');
     $crud->set_relation('po_id', 'po', 'no_po');
     $crud->display_as('po_id','Nomer Purchase Order');
+    $crud->display_as('spk_induk_id','Nomer SPK Induk');
+    $crud->display_as('product_code', 'Description');
+    $crud->columns('spk_induk_id','po_id', 'spk_date','gudang_asal', 'gudang_tujuan', 'spk_status');
     $crud->add_action('Material', 'fa fa-paperclip', 'purchase/spk_material','edit_button');
     $crud->add_action('Report', 'fa fa-book','report/report_spk_induk','');
+    $crud->add_action('Report Spk Produksi', 'fa fa-book', 'report/report_spk_produksi','');
     $crud->add_action('Delete', 'fa fa-trash-o','purchase/delete_spk_induk', '');
     $crud->unset_print();
     $crud->unset_delete();
     $crud->callback_after_insert(array($this,'spkinduk_notif'));
-
-    $crud->callback_field('description',array($this,'callback_description_spk_induk' ));
+    $crud->callback_field('product_code',array($this,'callback_description_spk_induk' ));
+	$crud->callback_after_insert(array($this,'spkinduk_description'));
+    
+	if ($this->uri->segment(3) == 'add'){
+		$crud->unset_fields('description', 'modified_at');
+	}
+    if ($this->uri->segment(3) == 'read'){
+    	$q = $this->Mesin_model->getprosestype($this->uri->segment(4));
+    	$ops = $this->Operatormesin_model->get_operator_role2($q);
+    	//print_r($ops);exit;
+    	$crud->unset_fields('product_code', 'modified_at');
+    }
 
     $output = $crud->render();
 
@@ -313,6 +340,13 @@ function spkinduk_notif($post_array,$primary_key){
     $this->Notification_model->insert($data);
 }
 
+function spkinduk_description($post_array, $primary_key){
+	$description = $this->crud_model->select('product','*','product_kode='.$post_array['product_code'],null,null,null)->result();
+	$data = array("description" => $description[0]->product_name);
+	$condition = array("spk_induk_id" => $primary_key);
+	$this->crud_model->update('spk_induk', $data, $condition);
+}
+
 public function spk_material($spk_induk) {
 
     $crud = new Grocery_CRUD();
@@ -327,6 +361,9 @@ public function spk_material($spk_induk) {
     $crud->set_relation('gudang_id', 'gudang', 'gudang_name');
     $userid = $this->ion_auth->user()->row()->id;
     $crud->field_type('created_by','hidden',$userid);
+
+	 $crud->callback_before_insert(array($this,'harga_satuan_custom'));
+
     $crud->field_type('spk_induk_id','hidden',$spk_induk);
     $crud->field_type('satuan','dropdown', array(
      'Riem' => 'Riem',
@@ -336,6 +373,17 @@ public function spk_material($spk_induk) {
      'lbr' => 'Lembar'
  ));
 
+	if ($this->uri->segment(4) == 'edit'){
+          $crud->callback_edit_field('jumlah_material', array($this,'qty_current_jumlah_material'));
+          $qty_current = $this->crud_model->select('spk_material','*','spk_material_id='.$primary_key,null, null, null)->result();
+          $crud->field_type('harga_material_satuan','hidden',$qty_current[0]->harga_material_satuan);
+          $crud->callback_edit_field('kode_material', array($this, 'kode_material_custom_spk_material'));
+     	}
+
+	if ($this->uri->segment(4) == 'add'){ 
+		$crud->field_type('harga_material_satuan','hidden',0);
+	}
+    $crud->display_as('harga_material_satuan', 'Harga satuan');
     $output = $crud->render();
 
     $data['judul'] = 'Adding Material For SPK No '.$spk_induk;
@@ -343,6 +391,23 @@ public function spk_material($spk_induk) {
     $view = 'grocery'; $template='metronic_template';
     $this->outputview->output_admin($view, $template, $data, $output);
 
+}
+
+function kode_material_custom_spk_material($post_array,$primary_key){
+    $kode_current = $this->crud_model->select('spk_material','*','spk_material_id='.$primary_key, null, null, null)->result();
+    $material = $this->crud_model->select('material','*','id='.$kode_current[0]->kode_material,null, null, null)->result();
+    return '<select id="field-kode_material" name="kode_material" class="chosen-select chzn-done" data-placeholder="Select Kode material" style="width: 300px; display: none;" disabled="true"><option value="'.$material[0]->id.'" selected="selected">'.$material[0]->material_name.'</option><option value="">4321_jajal</option></select><div id="field_kode_material_chzn" class="chzn-container chzn-container-single" style="width: 100%;" ><a href="javascript:void(0)" class="chzn-single chzn-default" tabindex="-1" disabled="true"><span>'.$material[0]->material_name.'</span><div><b></b></div></a></div>';
+}
+
+function harga_satuan_custom($post_array){
+        $harga_satuan_custom = $this->crud_model->select('material','*','id='.$post_array['kode_material'],null, null, null)->result();
+$post_array['harga_material_satuan'] = $harga_satuan_custom[0]->harga_satuan;
+        return $post_array;
+    }
+
+function qty_current_jumlah_material($post_array,$primary_key){
+    $qty_current = $this->crud_model->select('spk_material','*','spk_material_id='.$primary_key,null, null, null)->result();
+    return '<input id="field-jumlah_material" name="jumlah_material" type="text" value="'.$qty_current[0]->jumlah_material.'" class="numeric form-control" maxlength="11" disabled="false">';
 }
 
 public function spk_proses_mesin() {
@@ -361,43 +426,54 @@ public function spk_proses_mesin() {
        $crud->unset_print();
        $crud->unset_export();
        $crud->unset_columns('created_by','mesin_id','nama_kertas','ukuran_kertas','description','jumlah','warna','catatan_khusus','modified_at','ukuran_kertas_plano','operator_mesin','ukuran_kertas_potong','varnish_type','lem_type','proses_ke_mesin');
-       $crud->unset_edit_fields('created_by','created_at','spk_induk','mesin_id','nama_kertas','proses_type','ukuran_kertas','jumlah','qty_order','warna','catatan_khusus','modified_at','ukuran_kertas_plano','ukuran_kertas_potong','varnish_type','lem_type','proses_ke_mesin');
+       $crud->unset_edit_fields('created_by','created_at','mesin_id','nama_kertas','ukuran_kertas','jumlah','qty_order','warna','catatan_khusus','modified_at','ukuran_kertas_plano','ukuran_kertas_potong','varnish_type','lem_type','proses_ke_mesin');
        if ($this->uri->segment(3) == 'edit'){
         $q = $this->Mesin_model->getprosestype($this->uri->segment(4));
         $ops = $this->Operatormesin_model->get_operator_role2($q);
 				//print_r($ops);exit;
         $crud->field_type('operator_mesin','dropdown', $ops);
-
-    }
+        $crud->field_type('proses_type','readonly');
+        }
     $crud->callback_before_insert(array($this,'spkmesin_qtyfinish'));
     $crud->callback_before_update(array($this,'spkmesin_qtyfinish'));
     $crud->callback_after_insert(array($this,'operatormesinupdate'));
     $crud->callback_after_update(array($this,'operatormesinupdate'));
 
-} else {
+    } else {
 
-  $crud->callback_field('mesin_id',array($this,'callbackmesin'));
-  $crud->unset_columns('created_by','mesin_id','nama_kertas','ukuran_kertas','description','jumlah','warna','catatan_khusus','modified_at','ukuran_kertas_plano','operator_mesin','ukuran_kertas_potong','varnish_type','lem_type','proses_ke_mesin');
-  $crud->field_type('created_by','hidden',$userid);
-  $crud->unset_fields('modified_at');
-  $crud->required_fields('category');
-  $crud->unset_edit_fields('created_at','modified_at');
-  $mesin = $this->Mesin_model->proses();
-  $crud->field_type('proses_ke_mesin','dropdown', $mesin);
+    $crud->callback_field('mesin_id',array($this,'callbackmesin'));
+    $crud->unset_columns('created_by','mesin_id','nama_kertas','ukuran_kertas','description','jumlah','warna','catatan_khusus','modified_at','ukuran_kertas_plano','operator_mesin','ukuran_kertas_potong','varnish_type','lem_type','proses_ke_mesin');
+    $crud->field_type('created_by','hidden',$userid);
+    if ($this->uri->segment(3) == 'add'){
+        $crud->field_type('qty_reject','hidden');
+    }
+    $crud->unset_fields('modified_at');
+    $crud->required_fields('category');
+    $crud->unset_edit_fields('created_at','modified_at');
+    $mesin = $this->Mesin_model->proses();
+    $crud->field_type('proses_ke_mesin','dropdown', $mesin);
 
-  $crud->required_fields('spk_induk','proses_type');
+    $crud->required_fields('spk_induk','proses_type');
 
-
-  $crud->callback_field('operator_mesin',array($this,'callbackoperator'));
-  $crud->callback_before_insert(array($this,'spkmesin_qtyfinish'));
-  $crud->callback_before_update(array($this,'spkmesin_qtyfinish'));
-  $crud->callback_after_insert(array($this,'operatormesinupdate'));
-  $crud->callback_after_update(array($this,'operatormesinupdate'));
-  $crud->callback_after_insert(array($this,'spkprosesmesin_notif'));
-  $crud->unset_print();
+    $crud->callback_field('operator_mesin',array($this,'callbackoperator'));
+    $crud->callback_before_insert(array($this,'spkmesin_qtyfinish'));
+    $crud->callback_before_update(array($this,'spkmesin_qtyfinish'));
+    $crud->callback_after_insert(array($this,'operatormesinupdate'));
+    $crud->callback_after_update(array($this,'operatormesinupdate'));
+    $crud->callback_after_insert(array($this,'spkprosesmesin_notif'));
+    $crud->unset_print();
 }
 
-$crud->columns('proses_type', 'spk_induk', 'qty_order', 'qty_finish', 'created_at', 'status_spk', 'progress');
+if ($this->uri->segment(3) == 'edit'){
+  $crud->callback_edit_field('qty_current', array($this,'qty_current_finish_spk_mesin'));
+  $crud->callback_edit_field('qty_finish', function($value, $primary_key){
+    return '<input id="field-qty_finish" type="text" maxlength="50" value="" name="qty_finish">';
+  });
+   $crud->fields('proses_type', 'spk_induk', 'mesin_id', 'qty_order','qty_current', 'qty_finish', 'qty_reject',
+  'catatan_khusus', 'status_spk', 'description', 'operator_mesin');
+}
+
+$crud->columns('proses_type', 'spk_induk', 'qty_order', 'qty_finish', 'qty_reject','created_at', 'status_spk', 'progress');
 $crud->callback_column('percent',array($this,'percent_column_callback'));
 
 $crud->add_action('Print','fa fa-book','report/cetakspk', '');
@@ -529,10 +605,10 @@ public function descriptionPO()
   $description = $this->crud_model->relation('po_product', 'product', null, null,'po_product.product_id=product.product_id', null, null, '*', 'po_product.po_id='.$q,null)->result();
 
   $data= "";
-  $data.= "<select id='field-description' name='description' data-placeholder='Select Description' style='display: ;'>";
+  $data.= "<select id='field-description' name='product_code' data-placeholder='Select Description' style='display: ;'>";
 
   foreach ($description as $key => $value) {
-    $data.="<option value='$value->product_name' >$value->product_name</option>\n";
+    $data.="<option value='$value->product_kode' >$value->product_name</option>\n";
   }
   $data.="</select>";
   echo $data;
@@ -562,10 +638,15 @@ function callbackmesin($post_array,$private_key)
                 //$bookdate = date('Y-m-d H:i:s');
     return "<select id='field-mesin_id' name='mesin_id' class='chosen-select chzn-done' data-placeholder='Select Mesin' style='display: ;'></select>";
 }
+function qty_current_finish_spk_mesin($post_array,$primary_key){
+    $qty_current = $this->crud_model->select('spk_proses_mesin','*','spk_proses_id='.$primary_key,null, null, null)->result();
+    log_message('IINFO', 'kadieu yeuh logna : ' + $qty_current[0]->qty_finish);
+    return '<input id="field-qty_current" type="text" value="'.$qty_current[0]->qty_finish.'" class="numeric form-control" maxlength="11" disabled="true">';
+}
 
 function callback_description_spk_induk($post_array,$private_key)
 {
-    return "<select id='field-description' name='description' class='chosen-select chzn-done' data-placeholder='Select Description' style='display: ;'></select>"; 
+    return "<select id='field-description' name='product_code' class='chosen-select chzn-done' data-placeholder='Select Description' style='display: ;'></select>"; 
 }
 
 function operatormesinupdate($post_array,$primary_key){

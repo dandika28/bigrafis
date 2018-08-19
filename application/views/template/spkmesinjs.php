@@ -25,6 +25,12 @@ $(document).ready(function(){
 				var width = qtyFinish*100/qtyOrder;
 				$('#progress_input_box .progress-bar').css("width",width+'%');
 				$('#progress_input_box .progress-bar').text(width+'%');
+
+				if ($('#field-proses_type').hasClass('readonly_label')) {
+					console.log('here')
+					$('#field-proses_type').addClass('form-control').attr("disabled", true);
+				}
+
 	$(document).on('change', '#field-po_id', function(){
 		var desc_po = $("#field-po_id").val();
 		$.ajax({
@@ -46,6 +52,15 @@ $(document).ready(function(){
                success: function(data){
                    $("#field-mesin_id").html(data);
                }
+            });
+
+            $.ajax({
+            	type 	: "POST",
+            	url 	: "<?php echo base_url(); ?>index.php/Purchase/operator_role",
+            	data 	: "field-proses_type=" + proses_type,
+            	success: function(data){
+            		$("#field-operator_mesin").html(data);
+            	}
             });
             if ($('#field-proses_type').val() == '2') {
 				console.log(proses_type);
@@ -237,8 +252,7 @@ $(document).ready(function(){
 				$('#proses_ke_mesin_display_as_box').hide();
 				$('#field-proses_ke_mesin').hide();
 			
-			}
-			
+			} 			
 			});
         });
 </script>

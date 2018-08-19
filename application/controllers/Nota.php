@@ -61,7 +61,7 @@ class Nota extends CI_Controller {
 		$dataNotaTrf = array('spk_induk' => $spk_induk, 'status' => 'OK', 'created_by' => '1');
 		$this->crud_model->insert('nota_transfer', $dataNotaTrf);
 		$intrNumber = $this->crud_model->selectdesc('nota_transfer', 'id', null, null, 'id', null)->result();
-
+		$status = array();
 		for($i=0;$i<count($_POST['spk_material_id']);$i++){
 
 			$q=$this->crud_model->select('spk_material','*','spk_material_id='.$_POST['spk_material_id'][$i],null,null,null)->result();
@@ -77,8 +77,20 @@ class Nota extends CI_Controller {
 			$dataNotaTrfMaterial = array('nota_id' => $intrNumber[0]->id, 'spk_material_id' => $q[0]->spk_material_id, 'qty_deliver' => $_POST['qty_deliver'][$i],
 				'mesin_id' => null, 'keterangan' => null);
 			$this->crud_model->insert('nota_transfer_material', $dataNotaTrfMaterial);
+			$updatedMaterial = $this->crud_model->select('spk_material', '*', 'spk_material_id='.$_POST['spk_material_id'][$i],null,null,null)->result();
+			if($updatedMaterial->jumlah_deliver = $updatedMaterial->qty_deliver){
+				array_push($status, 1);
+			}else{
+				array_push($status, 0);
+			}
 		}
 		
+		if (in_array(0, $status, true)){
+			$condition = array('spk_induk_id' => $spk_induk);
+			$data = array('status' => 2);
+			$this->crud_model->update('spk_induk', $data, $condition);
+		}
+
 		$output['headervalue'] = $this->crud_model->relation('spk_induk','po','product',null,'spk_induk.po_id = po.id','product.product_id=po.product_id',null,'*', 'spk_induk.spk_induk_id='.$spk_induk, null)->result();
 
 		$value = $this->crud_model->relation('spk_induk','po','spk_material','material','spk_induk.po_id=po.id','spk_induk.spk_induk_id=spk_material.spk_induk_id','spk_material.kode_material=material.id','*','spk_induk.spk_induk_id='.$spk_induk, null)->result();
@@ -101,6 +113,8 @@ class Nota extends CI_Controller {
 	{
 
 		$output['test'] = $this->crud_model->relation('spk_material','material',null,null,'material.id = spk_material.kode_material',null,null,'*', 'spk_material.spk_induk_id='.$spk_induk, null)->result();
+
+		$output['statusSpk'] = $this->crud_model->select('spk_induk', '*', 'spk_induk_id='.$spk_induk, null, null, null)->result();
 
         $data['judul'] = ' Nota Transfer';
 		$data['crumb'] = array( 'Nota' => 'nota/index', 'View' => '');
